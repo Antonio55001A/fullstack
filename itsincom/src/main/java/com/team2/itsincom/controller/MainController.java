@@ -164,12 +164,19 @@ public class MainController {
 
 				Utente utente = utenteRepository.login(email, encryptedpassword);
 				
-				if(utente != null)
-				session.setAttribute("loggedUtente", utente);
-				System.out.println(" loggato utente");
+				String email_verifica = utente.email;
 				
-				return "redirect:/home";
+				if(utente != null) {
+				session.setAttribute("loggedUtente", utente);
+				
+				if(email_verifica=="antoniodebiase2003@gmail.com"){
+					System.out.println(" loggato utente");
+					return "redirect:/dashbord";
+				}
 
+				System.out.println(" loggato utente");
+				return "redirect:/home";
+				}			
 				
 	        } 
 		
@@ -178,6 +185,7 @@ public class MainController {
         e.printStackTrace();  
 		return "redirect:/login?error";
     }
+		return "redirect:/login?error";
 
 
 	}
@@ -193,6 +201,12 @@ public class MainController {
 		mav.addObject("utente", utente);
 		System.out.println(" loggato mav");
 		System.out.println(mav);
+		
+		// utente loggato dati: 
+		System.out.println(utente.email);	
+		System.out.println(utente.password);
+		System.out.println(utente.idutente);
+
 		return mav;
 	}
 	
@@ -216,44 +230,106 @@ public class MainController {
 		
 		Token codice=tokenRepository.findBytoken(code);
 		
+		
+		System.out.println("verifica codice autenticazione");    	
+
         if(codice != null) {
     		System.out.println(" codice esistente");
 			List<Usercode> usercode = usercodeRepository.findBytoken(codice);
     		System.out.println(" codice esistente anche nei log");
-    		System.out.println(usercode);    	
-    		String email = (String) session.getAttribute("email");
+    		System.out.println(usercode);    
     		
-    		if(email !=null) {
-			Utente utente = new Utente(null,email,password);
-			session.setAttribute("loggedUtente", utente);
-			System.out.println(" loggato utente");
+    		System.out.println(" verifica codice eseguita - step 1 Fatto-");
+
+    		
+    		System.out.println(" Inizio step 2");
+    		System.out.println(" Utilizzo metodo get per utente nella session");
+
+    		Utente utente = (Utente) session.getAttribute("utente");
+    		System.out.println(utente.idutente);    	
+    		
+    		System.out.println(" utente trovato, trovato anche id");
+    		System.out.println(" inizializzazione id");
+
+    		Integer id= utente.idutente;
+    		
+    		System.out.println(" ricerca utente tramite id");
+
+    		Utente cliente = utenteRepository.findByIdutente(id);
+
+    		System.out.println(" utente trovato tramite id");
+
+    		if(cliente!=null) {
+    			
+			System.out.println(" utente trovato");
 			
 			// da corregere
+			
+			  String encryptedpassword;
+				try   
+			        {  
+					
+					System.out.println(" inizio decripto password");
 
+			            /* MessageDigest instance for MD5. */  
+			            MessageDigest m = MessageDigest.getInstance("MD5");  
+			              
+			            /* Add plain-text password bytes to digest using MD5 update() method. */  
+			            m.update(password.getBytes());  
+			              
+			            /* Convert the hash value into bytes */   
+			            byte[] bytes = m.digest();  
+			              
+			            /* The bytes array has bytes in decimal form. Converting it into hexadecimal format. */  
+			            StringBuilder s = new StringBuilder();  
+			            for(int i=0; i< bytes.length ;i++)  
+			            {  
+			                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
+			            }  
+			              
+			            /* Complete hashed password in hexadecimal format */  
+			            encryptedpassword = s.toString();  
+				        System.out.println("Plain-text password: " + password);  
+				        System.out.println("Encrypted password using MD5: " + encryptedpassword); 
+				        
+				        /*save user in db */
 
-    		return "redirect:/home";
+				        cliente.setPassword(encryptedpassword);
+				        
+						utenteRepository.save(cliente);
+						session.setAttribute("loggedUtente", cliente);
+
+			    		System.out.println(" salvataggio utente");
+						
+						return "redirect:/home";
+
+						
+			        } 
+				
+		    catch (NoSuchAlgorithmException e)   
+		    {  
+	        	
+	        	// in caso errato, richiede di reinviare l'email 
+	    		System.out.println(" codice  non esistente, inserire il codice corretto ");
+
+		    }
+			
+
     		}
-
-        }else {
-        	
-        	// in caso errato, richiede di reinviare l'email 
-    		System.out.println(" codice  non esistente, inserire il codice corretto ");
-
-    		return "redirect:/change";
+    		
 
         }
-		return " errore ";	
-		
+		return "redirect:/change";
+
 	}
-	
 	
 	@RequestMapping(value="/forgotPassword", method=RequestMethod.POST)
 	public String postForgot(@RequestParam("email") String email, Model model, HttpSession session) {
 				
 			//inserimento credenziali account mittente
 		
-				final String username = "abbonamenti943@gmail.com"; //email di chi invia
-		     final String password = "ghbauwjnrhivziyx"; // password di chi invia
+				final String username = "javaemail75@gmail.com"; //email di chi invia
+		     final String password = "fsvbgyrecuesbmku"; // password di chi invia
 
 		     
 		     // settaggi gmail
@@ -343,6 +419,18 @@ public class MainController {
 		     }
 		return "redirect:/change";
 
+	}
+	
+	// INIZIO CODICE ADMIN
+	@GetMapping("/dashbord") 
+	public String dashbordAdmin(HttpSession session) {
+		
+		Utente utente= (Utente) session.getAttribute("loggedUtente");
+		if(utente.email=="antoniodebiase2003@gmail.com") {
+			return "dashbord";
+		}
+		
+		return "login";
 	}
 	
 
