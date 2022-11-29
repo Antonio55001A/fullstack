@@ -20,7 +20,7 @@ public interface UtenteDao extends CrudRepository<Utente, Long>{
 
 	
     @Query(value = "select s from Utente s where email= :email and password = :password")
-	public Utente login(String email, String password) ;
+	public Utente login(@Param("email")String email,@Param("password") String password) ;
     
     
 }

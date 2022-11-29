@@ -165,20 +165,22 @@ public class MainController {
 				Utente utente = utenteRepository.login(email, encryptedpassword);
 				
 				String email_verifica = utente.email;
+				System.out.println(" email verifica: "+ email_verifica);
+
+				
 				
 				if(utente != null) {
 				session.setAttribute("loggedUtente", utente);
-				
-				if(email_verifica=="antoniodebiase2003@gmail.com"){
+					if(email_verifica.compareTo("antoniodebiase2003@gmail.com")==0){
+						System.out.println(" loggato utente");
+						return "redirect:/dashboard";
+					}else {
+		
 					System.out.println(" loggato utente");
-					return "redirect:/dashbord";
+					return "redirect:/home";
+					}			
 				}
-
-				System.out.println(" loggato utente");
-				return "redirect:/home";
-				}			
-				
-	        } 
+	        }
 		
     catch (NoSuchAlgorithmException e)   
     {  
@@ -296,12 +298,8 @@ public class MainController {
 
 				        cliente.setPassword(encryptedpassword);
 				        
-						utenteRepository.save(cliente);
-						session.setAttribute("loggedUtente", cliente);
-
-			    		System.out.println(" salvataggio utente");
-						
-						return "redirect:/home";
+						utenteRepository.save(cliente);						
+						return "redirect:/login";
 
 						
 			        } 
@@ -411,7 +409,8 @@ public class MainController {
 				 
 				 
 				 // set email
-				 session.setAttribute("email", email);
+				 //session.setAttribute("email", email);
+				 session.setAttribute("utente", user);
 
 
 		     } catch (MessagingException e) {
@@ -422,15 +421,15 @@ public class MainController {
 	}
 	
 	// INIZIO CODICE ADMIN
-	@GetMapping("/dashbord") 
+	@GetMapping("/dashboard") 
 	public String dashbordAdmin(HttpSession session) {
 		
 		Utente utente= (Utente) session.getAttribute("loggedUtente");
-		if(utente.email=="antoniodebiase2003@gmail.com") {
-			return "dashbord";
+		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
+			return "dashboard";
 		}
 		
-		return "login";
+		return "redirect:/login";
 	}
 	
 
