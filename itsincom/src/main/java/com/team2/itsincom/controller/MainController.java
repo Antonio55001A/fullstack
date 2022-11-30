@@ -421,9 +421,11 @@ public class MainController {
 	}
 	
 	// INIZIO CODICE ADMIN
+	
 	@GetMapping("/dashboard") 
 	public String dashbordAdmin(HttpSession session) {
 		
+		//verifica utente per poter visualizzare la pagina
 		Utente utente= (Utente) session.getAttribute("loggedUtente");
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
 			return "dashboard";
