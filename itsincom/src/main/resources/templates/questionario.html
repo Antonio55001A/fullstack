@@ -8,11 +8,19 @@
 		<div id="sezioneQuestionario">
 			<th:block th:each="q:${questionario}">
 				<div class="questionario">
-					<h3 th:text="${q.data}"></h3>
-					<th:block th:each="r:${risposteUtente}">
-						<p th:text="${r.domanda.getTesto()}"></p>
-						<p th:text="${r.voto}"></p>
-					</th:block>
+					<h3 th:text="${q.nome}"></h3>
+					<form action="/questionario" method="post">
+						<th:block th:each="r:${risposteUtente}">
+							<p th:text="${r.domanda.getTesto()}"></p>
+							<!-- Voto recensione -->
+							<input type="radio" id="d${r.domanda.getIddomanda()}v1" value=1 name="voto${r.domanda.getIddomanda()}" required="required">
+							<input type="radio" id="d${r.domanda.getIddomanda()}v2" value=2 name="voto${r.domanda.getIddomanda()}">
+							<input type="radio" id="d${r.domanda.getIddomanda()}v3" value=3 name="voto${r.domanda.getIddomanda()}">
+							<input type="radio" id="d${r.domanda.getIddomanda()}v4" value=4 name="voto${r.domanda.getIddomanda()}">
+							<input type="radio" id="d${r.domanda.getIddomanda()}v5" value=5 name="voto${r.domanda.getIddomanda()}">
+						</th:block>
+						<input type="submit" value="Invia risposte">
+					</form>
 				</div>
 			</th:block>
 		</div>
