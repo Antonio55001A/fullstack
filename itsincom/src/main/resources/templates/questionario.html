@@ -3,10 +3,10 @@
         <title>Questionario</title>  
     </head>  
 	<body>
-		<h1 th:text="Benvenuto, ${utente.nome} ${utente.cognome}!"></h1>
+		<h1>Compila il questionario</h1>
 		<a href="/home">Torna alla home</a>
-		<div id="sezioneQuestionari">
-			<th:block th:each="q:${questionari}">
+		<div id="sezioneQuestionario">
+			<th:block th:each="q:${questionario}">
 				<div class="questionario">
 					<h3 th:text="${q.data}"></h3>
 					<th:block th:each="r:${risposteUtente}">
