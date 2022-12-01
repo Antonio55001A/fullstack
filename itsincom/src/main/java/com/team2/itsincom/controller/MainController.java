@@ -442,8 +442,8 @@ public class MainController {
 	public String dashbordAdmin(HttpSession session, Model model) {
 		
 		
-		List<Domande> domande = (List<Domande>) domandaRepository.findAll();
-		model.addAttribute("domande", domande);
+		//List<Domande> domande = (List<Domande>) domandaRepository.findAll();
+		//model.addAttribute("domande", domande);
 
 		//verifica utente per poter visualizzare la pagina
 		Utenti utente= (Utenti) session.getAttribute("loggedUtente");
@@ -453,13 +453,13 @@ public class MainController {
 		 
 		return "redirect:/login";
 	}
-	@GetMapping("/aggiungidomanda") 
-	public String Aggiungidomanda() {
+	@GetMapping("/aggiungiQuestionario") 
+	public String aggiungiQuestionario() {
 		
-		return "aggiungidomanda";
+		return "aggiungiQuestionario";
 	}
 	
-	@RequestMapping(value="/cambiodomanda", method=RequestMethod.POST)
+	@RequestMapping(value="/aggiungiQuestionario", method=RequestMethod.POST)
 	public String AggiungiDomanda(@RequestParam("testodomanda") String testodomanda) {
 		
 		 Domande domanda = new Domande(null,testodomanda);

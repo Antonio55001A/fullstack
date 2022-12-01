@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashbord</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+
+<!-- Form Name -->
+<form class="form-horizontal">
+
+    <input type="hidden" name="parametrozero" id="concatenazione">
+<!-- Text input-->
+<div id="items" class="form-group">
+  <h3><label class="col-md-4 control-label mt-3" for="textinput">Inserisci il titolo del questionario</label></h1>
+<div class="col-md-4 margin-bottom">
+  <input id="textinput" name="textinput" type="text" placeholder="Inserisci il titolo del questionario" class="form-control input-md " required>
+
+</div>
+</div>
+
+<div class="d-flex ">
+    <button class="submit ml-3 btn button-white uppercase" type="submit">Invia Questionario</button>
+    <div class="d-flex ">
+        <button id="add" class="btn add-more button-yellow uppercase ml-3" type="button">Aggiungi domanda</button> <button class="delete ml-3 btn button-white uppercase">Elimina domanda</button>
+    </div>
+</div>
+
+</form>
+</body>
+
+
+
+<script>
+
+$(document).ready(function() {
+    var i=1;
+  $(".delete").hide();
+  //when the Add Field button is clicked
+  $("#add").click(function(e) {
+    $(".delete").fadeIn("1500");
+    //Append a new row of code to the "#items" div
+    $("#items").append(
+      `<div class="next-referral col-md-3 mt-2"><input  onchange="cambiaTesto()" id="textinput" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
+    );
+    i+=1;
+  });
+  $("body").on("click", ".delete", function(e) {
+    $(".next-referral").last().remove();
+    i-=1;
+  });
+});
+
+
+function cambiaTesto(){
+    input= document.getElementById("concatenazione");
+    console.log(input);
+    input.value="";
+    lista_domande=document.getElementsByClassName("input-domanda");
+    console.log(lista_domande[0].value);
+    console.log(lista_domande.size);
+
+    for (let index = 0; index < lista_domande.size; index++) {
+       input.value += lista_domande[index].value;
+       input.innerHtml+= "§";
+        console.log(lista_domande);
+        
+    }
+    console.log(input.value);
+}
+
+</script>
+</body>
+</html>
