@@ -1,6 +1,11 @@
 29/11/2022
- - Antonio De Biase: Implementazione registrazione, login e recupero password
+ - Antonio De Biase: Implementazione registrazione, login, recupero password
  - Fabio Fiorattini: Creazione del database
  - Abdelhakim Hamse: Inizio del wireframe
- - Matteo Gentile: Assente
- - Insieme: Struttura del database, alberatura delle pagine e repository GitHub
+ - Insieme: Struttura del database, alberatura delle pagine, repository GitHub
+
+01/12/2022
+ - Antonio De Biase: Implementazione admin, adattamento e pulizia codice
+ - Fabio Fiorattini: Implementazione pagina html home e questionario
+ - Abdelhakim Hamse: Adattamento e miglioria wireframe
+ - Insieme: Progettazione pagine html
