@@ -1,71 +1,82 @@
 package com.team2.itsincom.model;
 
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "Token")
-public class Token {
+@Table(name = "tokens")
+public class Tokens {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer id;
+	public Integer idtoken;
 	
-	public String token;
+	@ManyToOne
+    @JoinColumn(name = "idutente")
+    public Utenti utente;
 	
-	ZonedDateTime date = ZonedDateTime.now();
+	public String valore;
+	
+	ZonedDateTime data = ZonedDateTime.now();
 
 
 	
 	private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
 	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
-	public Token(Integer id, String token, ZonedDateTime date2) {
+	public Tokens(Integer idtoken, Utenti utente, String valore, ZonedDateTime data) {
 		super();
-		this.id = id;
-		this.token = token;
-		this.date = date2;	
+		this.idtoken = idtoken;
+		this.utente = utente;
+		this.valore = valore;
+		this.data = data;	
 		}
 
 	
-	public Token() {
+	public Tokens() {
 		
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getidtoken() {
+		return idtoken;
 	}
 
-	public void setIdutente(Integer idutente) {
-		this.id = id;
+	public void setidtoken(Integer idtoken) {
+		this.idtoken = idtoken;
 	}
 
-	public String getToken() {
-		return token;
+	public String getvalore() {
+		return valore;
 	}
 
-	public void Token(String token) {
-		this.token = token;
+	public void valore(String valore) {
+		this.valore = valore;
 	}
 
 	public ZonedDateTime getdata() {
-		return date;
+		return data;
 	}
 
 	public void setdata(ZonedDateTime date) {
-		this.date = date;
+		this.data = date;
+	}
+	
+	public Utenti getutente() {
+		return utente;
+	}
+
+	public void setutente(Utenti utente) {
+		this.utente = utente;
 	}
 	
 	public static String generateNewToken() {

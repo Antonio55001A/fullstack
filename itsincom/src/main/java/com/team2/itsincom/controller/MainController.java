@@ -7,19 +7,13 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
+
 import java.util.Properties;
-import java.util.concurrent.ThreadLocalRandom;
 import java.security.MessageDigest;
 
-import org.hibernate.engine.internal.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -31,13 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team2.itsincom.Dao.TokenDao;
-import com.team2.itsincom.Dao.UsercodeDao;
-import com.team2.itsincom.Dao.UtenteDao;
-import com.team2.itsincom.model.Utente;
+import com.team2.itsincom.Dao.TokensDao;
+import com.team2.itsincom.Dao.UtentiDao;
+import com.team2.itsincom.model.Utenti;
 import com.team2.itsincom.model.ReCaptchaResponse;
-import com.team2.itsincom.model.Token;
-import com.team2.itsincom.model.Usercode;
+import com.team2.itsincom.model.Tokens;
 
 @Controller
 @RequestMapping("")
@@ -46,13 +38,12 @@ public class MainController {
 	// COMMENTO DI PROVA
 	
 	@Autowired
-	private UtenteDao utenteRepository; 
+	private UtentiDao utenteRepository; 
 	
 	@Autowired
-	private TokenDao tokenRepository; 
+	private TokensDao tokenRepository; 
 	
-	@Autowired
-	private UsercodeDao usercodeRepository; 
+
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -66,6 +57,8 @@ public class MainController {
 	@RequestMapping(value="/registrazione", method=RequestMethod.POST)
 	public String postRegistrazione(
 			@RequestParam("email") String email,
+			@RequestParam("nome") String nome,
+			@RequestParam("cognome") String cognome,
 			@RequestParam("password") String password,
 			@RequestParam("g-recaptcha-response") String captchaResponse) {	
 		
@@ -73,12 +66,27 @@ public class MainController {
 		String url = "https://www.google.com/recaptcha/api/siteverify";
 		String params = "?secret=6LcmWycjAAAAAL_CPGuBMw7G9MzzVYRjOYGV0joE&response="+captchaResponse;
 		
-		ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params, HttpMethod.POST,null,ReCaptchaResponse.class).getBody();		
-	{
 		
-		  String encryptedpassword;
+		ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params, HttpMethod.POST,null,ReCaptchaResponse.class).getBody();		
+
+
+
+		{
+		
 		try   
 	        {  
+			 String encryptedpassword;
+
+			Utenti user = utenteRepository.findByEmail(email);
+	        
+			if(user!=null){
+				
+		        System.out.println("utente già esistente");  
+
+		    	return "redirect:/registrazione?error";  
+				
+			}else {
+				
 	            /* MessageDigest instance for MD5. */  
 	            MessageDigest m = MessageDigest.getInstance("MD5");  
 	              
@@ -105,13 +113,14 @@ public class MainController {
 					
 				
 		        /*save user in db */
-				Utente nuovoUtente = new Utente(null, email, encryptedpassword);
+				Utenti nuovoUtente = new Utenti(null,nome,cognome, email, encryptedpassword);
 				utenteRepository.save(nuovoUtente);
 				
 		        } else {
 		        	return "redirect:/registrazione?error";  
 		        }
-	        }   
+	        }  
+	        }
 	        catch (NoSuchAlgorithmException e)   
 	        {  
 	            e.printStackTrace();  
@@ -162,13 +171,12 @@ public class MainController {
 		        
 		        /*save user in db */
 
-				Utente utente = utenteRepository.login(email, encryptedpassword);
+				Utenti utente = utenteRepository.login(email, encryptedpassword);
 				
 				String email_verifica = utente.email;
-				System.out.println(" email verifica: "+ email_verifica);
 
 				
-				
+	
 				if(utente != null) {
 				session.setAttribute("loggedUtente", utente);
 					if(email_verifica.compareTo("antoniodebiase2003@gmail.com")==0){
@@ -185,20 +193,19 @@ public class MainController {
     catch (NoSuchAlgorithmException e)   
     {  
         e.printStackTrace();  
-		return "redirect:/login?error";
     }
-		return "redirect:/login?error";
 
+		return "redirect:/login?error";
 
 	}
 	
 	//home
 	// passa oggetto studente
+	
 	@GetMapping("/home") 
 	public ModelAndView Homepage(Model model,HttpSession session) {
-		Utente utente = (Utente) session.getAttribute("loggedUtente");
+		Utenti utente = (Utenti) session.getAttribute("loggedUtente");
 		ModelAndView mav = new ModelAndView();
-		ModelAndView mavlogin = new ModelAndView();
 		mav.setViewName("home");
 		mav.addObject("utente", utente);
 		System.out.println(" loggato mav");
@@ -230,16 +237,16 @@ public class MainController {
 	public String postChange(@RequestParam("password") String password,@RequestParam("code") String code, Model model, HttpSession session) {
 		
 		
-		Token codice=tokenRepository.findBytoken(code);
+		Tokens codice=tokenRepository.findByvalore(code);
+  	
+
 		
 		
 		System.out.println("verifica codice autenticazione");    	
 
         if(codice != null) {
     		System.out.println(" codice esistente");
-			List<Usercode> usercode = usercodeRepository.findBytoken(codice);
     		System.out.println(" codice esistente anche nei log");
-    		System.out.println(usercode);    
     		
     		System.out.println(" verifica codice eseguita - step 1 Fatto-");
 
@@ -247,7 +254,7 @@ public class MainController {
     		System.out.println(" Inizio step 2");
     		System.out.println(" Utilizzo metodo get per utente nella session");
 
-    		Utente utente = (Utente) session.getAttribute("utente");
+    		Utenti utente = (Utenti) session.getAttribute("utente");
     		System.out.println(utente.idutente);    	
     		
     		System.out.println(" utente trovato, trovato anche id");
@@ -257,13 +264,23 @@ public class MainController {
     		
     		System.out.println(" ricerca utente tramite id");
 
-    		Utente cliente = utenteRepository.findByIdutente(id);
+    		Utenti cliente = utenteRepository.findByIdutente(id);
+    		
 
     		System.out.println(" utente trovato tramite id");
+    		
+    		Utenti idutente= codice.utente;
+    		System.out.println("id Utente: "+ idutente);  
+    		
+    		if(cliente.equals(idutente)) {
+    			    			
+				System.out.println(" utente trovato corretto");
+				
+    		}else {
+				System.out.println(" codice non corrispondente all'email");
 
-    		if(cliente!=null) {
-    			
-			System.out.println(" utente trovato");
+					return "redirect:/change";
+				}
 			
 			// da corregere
 			
@@ -315,11 +332,10 @@ public class MainController {
 
     		}
     		
-
-        }
 		return "redirect:/change";
 
-	}
+        }
+
 	
 	@RequestMapping(value="/forgotPassword", method=RequestMethod.POST)
 	public String postForgot(@RequestParam("email") String email, Model model, HttpSession session) {
@@ -354,7 +370,7 @@ public class MainController {
 		    	 
 		    	 // verifica se l'utente esiste all'interno del db
 		    	 
-			        Utente user = utenteRepository.findByEmail(email);
+			        Utenti user = utenteRepository.findByEmail(email);
 			        if(user != null) {
 			    		System.out.println(" utente esistente");
 			        	
@@ -370,11 +386,10 @@ public class MainController {
 
 			        
 					//creazione token
-					String chiave = Token.generateNewToken();
+					String chiave = Tokens.generateNewToken();
 					System.out.println(chiave);
-					 ZonedDateTime date=ZonedDateTime.now();
-					Token token = new Token(null, chiave, date);
-					tokenRepository.save(token);
+					 ZonedDateTime data=ZonedDateTime.now();
+
 					
 					
 					
@@ -400,8 +415,8 @@ public class MainController {
 		        
 
 		         System.out.println("Done");
-				 Usercode usercode = new Usercode(null, token,email,date);
-				 usercodeRepository.save(usercode);
+				 Tokens token = new Tokens(null,user,chiave,data);
+				 tokenRepository.save(token);
 				 
 		         System.out.println("usercode done");
 				 System.out.println(token);
@@ -426,13 +441,14 @@ public class MainController {
 	public String dashbordAdmin(HttpSession session) {
 		
 		//verifica utente per poter visualizzare la pagina
-		Utente utente= (Utente) session.getAttribute("loggedUtente");
+		Utenti utente= (Utenti) session.getAttribute("loggedUtente");
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
 			return "dashboard";
 		}
 		
 		return "redirect:/login";
 	}
+	
 	
 
 	

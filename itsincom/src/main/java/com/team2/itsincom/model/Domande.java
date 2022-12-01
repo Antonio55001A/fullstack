@@ -1,6 +1,5 @@
 package com.team2.itsincom.model;
 
-import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Domanda")
-public class Domanda {
+@Table(name = "domande")
+public class Domande {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,14 +17,14 @@ public class Domanda {
 	
 	public String testo="";
 	
-	public Domanda(Integer iddomanda, String testo) {
+	public Domande(Integer iddomanda, String testo) {
 		super();
 		this.iddomanda = iddomanda;
 		this.testo = testo;
 		}
 
 	
-	public Domanda() {
+	public Domande() {
 		
 	}
 	

@@ -10,28 +10,38 @@ import javax.validation.constraints.Size;
 import org.springframework.data.relational.core.mapping.Column;
 
 @Entity
-@Table(name = "Utente")
-public class Utente {
+@Table(name = "utenti")
+public class Utenti {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer idutente;
 	
+	@Size(min=2, max=30)
+	public String nome;
+	
+	@Size(min=2, max=30)
+	public String cognome;
 
-	@Size(min=10, max=200)
+
+	@Size(min=4, max=200)
 	public String email;
 	
 	@Size(min=4 , max=50)
 	public String password;
 
-	public Utente(Integer idutente, @Size(min = 20, max = 200) String email,
-			@Size(min = 10, max = 15) String password) {
+	public Utenti(Integer idutente, 
+			@Size(min=2, max=30) String nome,@Size(min=2, max=30) String cognome,
+			@Size(min = 4, max = 200) String email,
+			@Size(min = 4, max = 50) String password) {
 		super();
 		this.idutente = idutente;
+		this.nome = nome;
+		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
 	}
 	
-	public Utente() {
+	public Utenti() {
 		
 	}
 
@@ -47,6 +57,20 @@ public class Utente {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getNome() {
+		return nome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+	public String getCognome() {
+		return cognome;
 	}
 
 	public void setEmail(String email) {

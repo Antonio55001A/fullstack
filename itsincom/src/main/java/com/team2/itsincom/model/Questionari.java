@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Questionari")
+@Table(name = "questionari")
 public class Questionari {
 	
 	@Id
@@ -22,16 +22,16 @@ public class Questionari {
 	
 	@ManyToOne
     @JoinColumn(name = "idutente")
-    public Utente utente;
+    public Utenti utente;
 	
 	
-	ZonedDateTime date = ZonedDateTime.now();
+	ZonedDateTime data = ZonedDateTime.now();
 	
 	
-	public Questionari(Integer idquestionario,  ZonedDateTime date) {
+	public Questionari(Integer idquestionario,  ZonedDateTime data) {
 		super();
 		this.idquestionario = idquestionario;
-		this.date = date;	
+		this.data = data;	
 		}
 	
 	public Integer getidquestionario() {
@@ -42,20 +42,20 @@ public class Questionari {
 		this.idquestionario = idquestionario;
 	}
 	
-	public Utente getutente() {
+	public Utenti getutente() {
 		return utente;
 	}
 
-	public void setutente(Utente utente) {
+	public void setutente(Utenti utente) {
 		this.utente = utente;
 	}
 	
 	public ZonedDateTime getdata() {
-		return date;
+		return data;
 	}
 
-	public void setdata(ZonedDateTime date) {
-		this.date = date;
+	public void setdata(ZonedDateTime data) {
+		this.data = data;
 	}
 
 }

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Risposte")
+@Table(name = "risposte")
 public class Risposte {
 
 	@Id
@@ -22,7 +22,7 @@ public class Risposte {
 	
 	@OneToOne
     @JoinColumn(name = "iddomanda")
-    public Domanda domanda;
+    public Domande domanda;
 	
 	@ManyToOne
     @JoinColumn(name = "idquestionario")
@@ -57,11 +57,11 @@ public class Risposte {
 		this.voto = voto;
 	}
 
-	public Domanda getdomanda() {
+	public Domande getdomanda() {
 		return domanda;
 	}
 
-	public void setdomanda(Domanda domanda) {
+	public void setdomanda(Domande domanda) {
 		this.domanda = domanda;
 	}
 
