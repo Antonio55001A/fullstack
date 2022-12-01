@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team2.itsincom.Dao.DomandeDao;
 import com.team2.itsincom.Dao.TokensDao;
 import com.team2.itsincom.Dao.UtentiDao;
 import com.team2.itsincom.model.Utenti;
+import com.team2.itsincom.model.Domande;
 import com.team2.itsincom.model.ReCaptchaResponse;
 import com.team2.itsincom.model.Tokens;
 
@@ -43,7 +45,9 @@ public class MainController {
 	@Autowired
 	private TokensDao tokenRepository; 
 	
-
+	@Autowired
+	private DomandeDao domandaRepository; 
+	
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -438,17 +442,30 @@ public class MainController {
 	// INIZIO CODICE ADMIN
 	
 	@GetMapping("/dashboard") 
-	public String dashbordAdmin(HttpSession session) {
+	public String dashbordAdmin(HttpSession session, Model model) {
 		
 		//verifica utente per poter visualizzare la pagina
 		Utenti utente= (Utenti) session.getAttribute("loggedUtente");
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
 			return "dashboard";
 		}
-		
+		 
 		return "redirect:/login";
 	}
+	@GetMapping("/aggiungidomanda") 
+	public String Aggiungidomanda() {
+		
+		return "aggiungidomanda";
+	}
 	
+	@RequestMapping(value="/cambiodomanda", method=RequestMethod.POST)
+	public String AggiungiDomanda(@RequestParam("testodomanda") String testodomanda) {
+		
+		 Domande domanda = new Domande(null,testodomanda);
+		 domandaRepository.save(domanda);
+		 
+		return "redirect:/dashboard";
+	}
 	
 
 	
