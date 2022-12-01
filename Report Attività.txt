@@ -5,7 +5,7 @@
  - Insieme: Struttura del database, alberatura delle pagine, repository GitHub
 
 01/12/2022
- - Antonio De Biase: Implementazione admin, adattamento e pulizia codice
- - Fabio Fiorattini: Implementazione pagina html home e questionario
- - Abdelhakim Hamse: Adattamento e miglioria wireframe
- - Insieme: Progettazione pagine html
+ - Antonio De Biase: Implementazione admin, adattamento/pulizia codice, funzionamento questionario
+ - Fabio Fiorattini: Pagina html home e questionario (lato utente), funzionamento questionario
+ - Abdelhakim Hamse: Adattamento/miglioria wireframe e lavoro su css
+ - Insieme: Progettazione struttura delle pagine html
