@@ -16,7 +16,25 @@
 
 <a href="/aggiungidomanda">Aggiungi una domanda</a>
 
+<table class="table table-hover">
+			<tr>
+				<th>Lista domande: </th>
 
+   			</tr>
+   			 	  <th:block th:each="domande : ${domande}">
+	      		
+    			<tr>
+    			
+    			<td>
+    			<form th:id="${domande.iddomanda}" >
+    			
+	      			<p th:text="${domande.iddomanda}" name="${domande.iddomanda}"><p>
+	      			<p th:text="${domande.testo}" class='ml-1'></p>
+	      			<button type="submit" th:id="${domande.iddomanda}">Clicca qui </a>
+	      		</form>
+	      		</td>
+	      		</tr>
+   			</th:block>
 
 </body>
 </html>

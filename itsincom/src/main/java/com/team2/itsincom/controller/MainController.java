@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
-
+import java.util.List;
 import java.util.Properties;
 import java.security.MessageDigest;
 
@@ -242,9 +242,6 @@ public class MainController {
 		
 		
 		Tokens codice=tokenRepository.findByvalore(code);
-  	
-
-		
 		
 		System.out.println("verifica codice autenticazione");    	
 
@@ -444,6 +441,10 @@ public class MainController {
 	@GetMapping("/dashboard") 
 	public String dashbordAdmin(HttpSession session, Model model) {
 		
+		
+		List<Domande> domande = (List<Domande>) domandaRepository.findAll();
+		model.addAttribute("domande", domande);
+
 		//verifica utente per poter visualizzare la pagina
 		Utenti utente= (Utenti) session.getAttribute("loggedUtente");
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
