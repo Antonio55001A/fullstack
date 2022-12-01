@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Nov 29, 2022 alle 16:46
+-- Creato il: Dic 01, 2022 alle 15:13
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `domande` (
   `iddomanda` int(11) NOT NULL,
-  `testo` text NOT NULL
+  `testo` text NOT NULL,
+  `idquestionariAdmin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -47,6 +48,18 @@ CREATE TABLE `questionari` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `questionariadmin`
+--
+
+CREATE TABLE `questionariadmin` (
+  `idquestionariAdmin` int(11) NOT NULL,
+  `titolo` varchar(45) NOT NULL,
+  `stato` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `risposte`
 --
 
@@ -55,7 +68,7 @@ CREATE TABLE `risposte` (
   `iddomanda` int(11) NOT NULL,
   `idquestionario` int(11) NOT NULL,
   `voto` tinyint(4) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -69,6 +82,13 @@ CREATE TABLE `tokens` (
   `valore` char(12) NOT NULL,
   `data` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `tokens`
+--
+
+INSERT INTO `tokens` (`idtoken`, `idutente`, `valore`, `data`) VALUES
+(1, 3, 'lJBKGXaEeiY=', '2022-12-01 12:40:47');
 
 -- --------------------------------------------------------
 
@@ -85,6 +105,13 @@ CREATE TABLE `utenti` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dump dei dati per la tabella `utenti`
+--
+
+INSERT INTO `utenti` (`idutente`, `nome`, `cognome`, `email`, `password`) VALUES
+(3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', '27ba1dd8e6d6ce9fcf0e7a5f7dea08cf');
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -92,7 +119,8 @@ CREATE TABLE `utenti` (
 -- Indici per le tabelle `domande`
 --
 ALTER TABLE `domande`
-  ADD PRIMARY KEY (`iddomanda`);
+  ADD PRIMARY KEY (`iddomanda`),
+  ADD KEY `fk_questionariAdmin` (`idquestionariAdmin`);
 
 --
 -- Indici per le tabelle `questionari`
@@ -100,6 +128,12 @@ ALTER TABLE `domande`
 ALTER TABLE `questionari`
   ADD PRIMARY KEY (`idquestionario`),
   ADD KEY `idutente` (`idutente`);
+
+--
+-- Indici per le tabelle `questionariadmin`
+--
+ALTER TABLE `questionariadmin`
+  ADD PRIMARY KEY (`idquestionariAdmin`);
 
 --
 -- Indici per le tabelle `risposte`
@@ -130,7 +164,7 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `domande`
 --
 ALTER TABLE `domande`
-  MODIFY `iddomanda` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iddomanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `questionari`
@@ -139,20 +173,32 @@ ALTER TABLE `questionari`
   MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT per la tabella `questionariadmin`
+--
+ALTER TABLE `questionariadmin`
+  MODIFY `idquestionariAdmin` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `idtoken` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtoken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Limiti per le tabelle scaricate
 --
+
+--
+-- Limiti per la tabella `domande`
+--
+ALTER TABLE `domande`
+  ADD CONSTRAINT `fk_questionariAdmin` FOREIGN KEY (`idquestionariAdmin`) REFERENCES `questionariadmin` (`idquestionariAdmin`);
 
 --
 -- Limiti per la tabella `questionari`
