@@ -177,12 +177,13 @@ public class MainController {
 
 				Utenti utente = utenteRepository.login(email, encryptedpassword);
 				
-				String email_verifica = utente.email;
 
 				
 	
 				if(utente != null) {
 				session.setAttribute("loggedUtente", utente);
+				String email_verifica = utente.email;
+
 					if(email_verifica.compareTo("antoniodebiase2003@gmail.com")==0){
 						System.out.println(" loggato utente");
 						return "redirect:/dashboard";
@@ -453,6 +454,8 @@ public class MainController {
 		 
 		return "redirect:/login";
 	}
+	
+	
 	@GetMapping("/aggiungiQuestionario") 
 	public String aggiungiQuestionario() {
 		

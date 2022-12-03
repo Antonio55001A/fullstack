@@ -17,66 +17,174 @@
 <!-- Form Name -->
 <form class="form-horizontal">
 
-    <input type="hidden" name="parametrozero" id="concatenazione">
+    <input type="hidden" name="parametrozero" id="parametrozero" >
 <!-- Text input-->
 <div id="items" class="form-group">
   <h3><label class="col-md-4 control-label mt-3" for="textinput">Inserisci il titolo del questionario</label></h1>
+
 <div class="col-md-4 margin-bottom">
   <input id="textinput" name="textinput" type="text" placeholder="Inserisci il titolo del questionario" class="form-control input-md " required>
 
 </div>
 </div>
-
+<br>
 <div class="d-flex ">
-    <button class="submit ml-3 btn button-white uppercase" type="submit">Invia Questionario</button>
+    <button class="ml-3 btn button-white uppercase" onclick="cambiaTesto()" type="submit" id="bottoneInvio" disabled="" >Invia Questionario</button>
     <div class="d-flex ">
         <button id="add" class="btn add-more button-yellow uppercase ml-3" type="button">Aggiungi domanda</button> <button class="delete ml-3 btn button-white uppercase">Elimina domanda</button>
     </div>
 </div>
 
+
 </form>
 </body>
-
-
 
 <script>
 
 $(document).ready(function() {
-    var i=1;
+
+    // inializzazioni variabili per controlli input ( es: input 1,2 ,3 è cosi via..)
+    var b=0;
+    var i=0;
+
+
+    // comando per far scomparire il bottone  delete
   $(".delete").hide();
-  //when the Add Field button is clicked
+  //Quando il bottone viene cliccato compare il bottone delete
+
   $("#add").click(function(e) {
     $(".delete").fadeIn("1500");
-    //Append a new row of code to the "#items" div
-    $("#items").append(
-      `<div class="next-referral col-md-3 mt-2"><input  onchange="cambiaTesto()" id="textinput" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
-    );
+
+    // cosa viene fatto:
+    /* 
+    
+    1) viene scelto il numero domande che si vuole far poter inserire nel questionario tramite la variabile "numeroDomande"
+    2)viene eseguito nel primo giro un upgrade di i da 0 a 1, questo viene fatto per far si che nel primo click venga sempre generato  un input domanda e che il programma non crei errrore
+    3) nel secondo giro, avendo già un input l'utente può fare 3 cose: Inviare il questionario, aggiungere un'altra domanda o rimuoverla
+    4) l'else if all'interno del codice sono dei controlli. Il 1 else if controlla che ci sia almeno una domanda, in caso positivo prende il valore dell'input è se è diverso da striga vuota permette all'utente di creare un'altra domanda. in caso in cui provasse a crearla senza prima scriverci qualcosa il sistema riporterà un errore a schermo
+    5) l'else invece serve per controllare il numero di domande, in caso si sia raggiunto il limite il programma crea un errore e lo manda a video 
+    6) il programma oltre a dare gli errore, evidenzia anche la casella da compilare
+    7) in caso non sia stata aggiunta alcuna domanda non è possibile inviare il questionario 
+
+    */
+
+    numeroDomande = 5;
+   if (i < numeroDomande) {
     i+=1;
-  });
+    $('#bottoneInvio').removeAttr("disabled")
+
+        if (i==1) {
+
+            $("#items").append(
+        `<div class="next-referral col-md-3 mt-2"><input id="textinput${i}" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
+            
+        );
+
+        console.log("1 if");
+        
+
+
+        }else if(i>1){
+            b+=1
+            var controllo = "textinput"+b;
+            console.log(controllo);
+
+            let elemento= document.getElementById(controllo).value
+
+            console.log("2 if");
+            console.log(elemento);
+
+
+            if(elemento != ""){
+             
+            $("#items").append(
+        `<div class="next-referral col-md-3 mt-2"><input id="textinput${i}" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
+            
+            )}else{
+                $(".input-domanda").last().css("border-color","red");
+                $(".next-referral").last().append(
+        `<p id="erroredomanda" style="color: red;"> Prima di inserire un'altra domanda compila quella precedente</p>`
+                
+                
+        )
+        b-=1;
+            i-=1;
+        setTimeout(
+            function() {
+            document.getElementById('erroredomanda').remove();
+            $(".input-domanda").last().css("border-color","black");
+
+            }, 2000);
+
+        console.log("SONO ENTRATO MA NON HO STAMPATO");
+
+                console.log("2 if");
+
+
+                }
+
+  }}else{
+    console.log("non puoi più aggiungere domande");
+    $(".next-referral").last().append(
+        `<p id="erroredomanda" style="color: red;"> Hai raggiunto il numero massimo di domande che puoi inserire</p>`
+    )
+    setTimeout(
+            function() {
+            document.getElementById('erroredomanda').remove();
+            }, 2000);
+
+  }});
+
+
   $("body").on("click", ".delete", function(e) {
+
+    console.log("delete");
     $(".next-referral").last().remove();
+
+    // controllo indicatori i e b per i vari input
+    if(i>0 ){
     i-=1;
+    console.log(i);
+    b-=1;
+    if(b<0){
+        b+=1;
+    }
+    }
+    if(i==0){
+        document.getElementById('bottoneInvio').setAttribute('disabled', '');
+
+    }
+    return false;
+
   });
 });
 
 
+// questa funziona serve per creare un unica stringa con i vari input in modo da poterla passare all'input nascosto ed in seguito a java, riuscendo così a passare tutte le domande
 function cambiaTesto(){
-    input= document.getElementById("concatenazione");
-    console.log(input);
-    input.value="";
-    lista_domande=document.getElementsByClassName("input-domanda");
-    console.log(lista_domande[0].value);
-    console.log(lista_domande.size);
 
-    for (let index = 0; index < lista_domande.size; index++) {
-       input.value += lista_domande[index].value;
-       input.innerHtml+= "§";
-        console.log(lista_domande);
-        
-    }
-    console.log(input.value);
+    var slides = document.getElementsByClassName("form-control input-md input-domanda");
+    let stringa="";
+    let inputzero= document.getElementById("parametrozero");
+    console.log(slides);
+    console.log("partito");
+for (var i = 0; i < slides.length; i++) {
+
+    if(slides[i].value == ""){
+
+    }else{
+
+    stringa += slides[i].value;
+    console.log(stringa);
+    stringa += "§";
+}}
+
+inputzero = inputzero.innerHTML = stringa;
+console.log(inputzero);
+
 }
 
 </script>
+
 </body>
 </html>
