@@ -17,16 +17,16 @@ public class Questionariadmin {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer idquestionarioadmin;
+	public Integer idquestionariAdmin;
 	
 	
 	@Size(min=2, max=30)
 	public String titolo;
 
 	
-	public Questionariadmin(Integer idquestionarioadmin,String titolo ) {
+	public Questionariadmin(Integer idquestionariAdmin,String titolo ) {
 		super();
-		this.idquestionarioadmin = idquestionarioadmin;
+		this.idquestionariAdmin = idquestionariAdmin;
 		this.titolo = titolo;
 		
 		}
@@ -37,14 +37,14 @@ public class Questionariadmin {
 	}
 	
 	public Integer getidquestionarioadmin() {
-		return idquestionarioadmin;
+		return idquestionariAdmin;
 	}
 
 	public void setidquestionarioadmin(Integer idquestionarioadmin) {
-		this.idquestionarioadmin = idquestionarioadmin;
+		this.idquestionariAdmin = idquestionariAdmin;
 	}
 	
-	public void setTitolo(String nome) {
+	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
 	public String getTitolo() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 01, 2022 alle 15:20
+-- Creato il: Dic 04, 2022 alle 04:21
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -33,6 +33,16 @@ CREATE TABLE `domande` (
   `idquestionariAdmin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `domande`
+--
+
+INSERT INTO `domande` (`iddomanda`, `testo`, `idquestionariAdmin`) VALUES
+(7, 'Come ti sei trovato?', 1),
+(8, 'Come è stato il nostro sito?', 1),
+(9, 'Di dove sei?', 2),
+(10, 'Come è stato il sito?', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -53,9 +63,16 @@ CREATE TABLE `questionari` (
 
 CREATE TABLE `questionariadmin` (
   `idquestionariAdmin` int(11) NOT NULL,
-  `titolo` varchar(45) NOT NULL,
-  `stato` tinyint(1) NOT NULL
+  `titolo` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `questionariadmin`
+--
+
+INSERT INTO `questionariadmin` (`idquestionariAdmin`, `titolo`) VALUES
+(1, 'Questionario 1'),
+(2, 'Questionario 2');
 
 -- --------------------------------------------------------
 
@@ -88,7 +105,8 @@ CREATE TABLE `tokens` (
 --
 
 INSERT INTO `tokens` (`idtoken`, `idutente`, `valore`, `data`) VALUES
-(1, 3, 'lJBKGXaEeiY=', '2022-12-01 12:40:47');
+(1, 3, 'lJBKGXaEeiY=', '2022-12-01 12:40:47'),
+(2, 3, 'bPTaW5qszSI=', '2022-12-04 04:14:09');
 
 -- --------------------------------------------------------
 
@@ -109,7 +127,7 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`idutente`, `nome`, `cognome`, `email`, `password`) VALUES
-(3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', '27ba1dd8e6d6ce9fcf0e7a5f7dea08cf');
+(3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', 'e10adc3949ba59abbe56e057f20f883e');
 
 --
 -- Indici per le tabelle scaricate
@@ -164,7 +182,7 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `domande`
 --
 ALTER TABLE `domande`
-  MODIFY `iddomanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `iddomanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `questionari`
@@ -176,13 +194,13 @@ ALTER TABLE `questionari`
 -- AUTO_INCREMENT per la tabella `questionariadmin`
 --
 ALTER TABLE `questionariadmin`
-  MODIFY `idquestionariAdmin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idquestionariAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `idtoken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idtoken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`

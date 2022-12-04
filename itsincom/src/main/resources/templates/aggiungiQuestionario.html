@@ -14,23 +14,28 @@
 <body>
 
 <!-- MANCA PARTE JAVA, LA AGGIUNGO DOMANI -->
+<!-- -->
 
 <!-- Form Name -->
-<form class="form-horizontal">
+<form class="form-horizontal" action="/aggiungiQuestionarioAdmin" method="post"  id="formtest" >
 
-    <input type="hidden" name="parametrozero" id="parametrozero" >
+    <!-- <input type="text" name="parametrozero" id="parametrozero" > -->
 <!-- Text input-->
 <div id="items" class="form-group">
   <h3><label class="col-md-4 control-label mt-3" for="textinput">Inserisci il titolo del questionario</label></h1>
 
 <div class="col-md-4 margin-bottom">
-  <input id="textinput" name="textinput" type="text" placeholder="Inserisci il titolo del questionario" class="form-control input-md " required>
+  <input id="textinput" name="titoloQuestionario" type="text" placeholder="Inserisci il titolo del questionario" class="form-control input-md " required>
 
 </div>
 </div>
 <br>
 <div class="d-flex ">
-    <button class="ml-3 btn button-white uppercase" onclick="cambiaTesto()" type="submit" id="bottoneInvio" disabled="" >Invia Questionario</button>
+    <div class="d-flex ml-3 align-items-center justify-content-center bg-dark " style="width: 130px; height:50px; color: white; cursor: pointer;">
+   <span onclick="submit()"   id="bottoneInvio">submit</span>
+</div>
+
+    <!--  <button class="ml-3 btn button-white uppercase"  type="submit" id="bottoneInvio" disabled="" >Invia Questionario</button> -->
 
     <div class="d-flex ">
         <button class="btn btn-primary mt-3" id="add"  type="button" style="margin-left:10px">Aggiungi domanda</button> <button class="btn btn-primary mt-3 delete button-white uppercase"style="margin-left:10px;background-color:red">Elimina domanda</button>
@@ -163,6 +168,9 @@ $(document).ready(function() {
 });
 
 
+//DA AGGIUNGERE CONTROLLO DEL BOTTONOE, PER EVITARE INVII SENZA DATI
+
+
 // questa funziona serve per creare un unica stringa con i vari input in modo da poterla passare all'input nascosto ed in seguito a java, riuscendo così a passare tutte le domande
 function cambiaTesto(){
 
@@ -175,17 +183,32 @@ for (var i = 0; i < slides.length; i++) {
 
     if(slides[i].value == ""){
 
-    }else{
+        // DA AGGIUNGERE CONTROLLO JS
+        }else{
 
     stringa += slides[i].value;
     console.log(stringa);
     stringa += "§";
 }}
 
-inputzero = inputzero.innerHTML = stringa;
-console.log(inputzero);
+$(".next-referral").last().append(
+        `<input type="text" id="parametrozero" name="parametrozero" value="${stringa}" style="color: red;"></p>`
+    )
+
+    console.log(document.getElementById("parametrozero").value);
+
+
+$("#formtest").submit();
 
 }
+
+
+document.querySelector('#bottoneInvio').addEventListener('click', function(event) {
+    
+    cambiaTesto();
+
+
+});
 
 </script>
 

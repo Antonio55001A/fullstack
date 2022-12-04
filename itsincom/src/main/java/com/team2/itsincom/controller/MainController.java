@@ -26,10 +26,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team2.itsincom.Dao.DomandeDao;
+import com.team2.itsincom.Dao.QuestionariAdminDao;
+import com.team2.itsincom.Dao.QuestionariDao;
 import com.team2.itsincom.Dao.TokensDao;
 import com.team2.itsincom.Dao.UtentiDao;
 import com.team2.itsincom.model.Utenti;
 import com.team2.itsincom.model.Domande;
+import com.team2.itsincom.model.Questionari;
+import com.team2.itsincom.model.Questionariadmin;
 import com.team2.itsincom.model.ReCaptchaResponse;
 import com.team2.itsincom.model.Tokens;
 
@@ -48,6 +52,11 @@ public class MainController {
 	@Autowired
 	private DomandeDao domandaRepository; 
 	
+	@Autowired
+	private QuestionariDao questionarioRepository; 
+	
+	@Autowired
+	private QuestionariAdminDao questionarioAdminRepository;
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -462,15 +471,38 @@ public class MainController {
 		return "aggiungiQuestionario";
 	}
 	
-	@RequestMapping(value="/aggiungiQuestionario", method=RequestMethod.POST)
-	public String AggiungiDomanda(@RequestParam("testodomanda") String testodomanda) {
+	// FUNZIONANTE, DA AGGIUNGERE CONTROLLO SU BOTTONE INVIO, IN SEGUITO TASK COMPLETATO
+	@RequestMapping(value="/aggiungiQuestionarioAdmin", method=RequestMethod.POST)
+	public String AggiungiDomanda(@RequestParam("titoloQuestionario") String titoloQuestionario, @RequestParam("parametrozero") String splitTesto) {
 		
-		 Domande domanda = new Domande(null,testodomanda);
-		 domandaRepository.save(domanda);
-		 
+		System.out.println("Sono la stringa: "+ splitTesto);
+		
+		if (splitTesto.contains("§")) {
+		  String[] domande = splitTesto.split("§");
+			int len = domande.length;
+			int i=0;
+
+			
+			Questionariadmin questionarioAdmin = new Questionariadmin(null,titoloQuestionario);
+			questionarioAdminRepository.save(questionarioAdmin);
+			
+			while(i<len) {
+				
+				 Domande domanda = new Domande(null,domande[i],questionarioAdmin);
+				 domandaRepository.save(domanda);
+				 i+=1;
+		}
+			}
+		
+		//else {
+		  //throw new IllegalArgumentException("La stringa " + splitTesto + " non contiene virgole");
+		//}
+
+
 		return "redirect:/dashboard";
+	}
 	}
 	
 
 	
-}
+
