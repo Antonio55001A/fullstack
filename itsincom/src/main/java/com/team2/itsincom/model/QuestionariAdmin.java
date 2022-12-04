@@ -11,58 +11,36 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "questionariadmin")
-public class Questionariadmin {
-
-	
+public class QuestionariAdmin {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-<<<<<<< Updated upstream
 	public Integer idquestionariAdmin;
-=======
-	public Integer idquestionariadmin;
->>>>>>> Stashed changes
-	
 	
 	@Size(min=2, max=30)
 	public String titolo;
 
-	
-<<<<<<< Updated upstream
-	public Questionariadmin(Integer idquestionariAdmin,String titolo ) {
+	public QuestionariAdmin(Integer idquestionariAdmin,String titolo ) {
 		super();
 		this.idquestionariAdmin = idquestionariAdmin;
-=======
-	public Questionariadmin(Integer idquestionariadmin,String titolo ) {
-		super();
-		this.idquestionariadmin = idquestionariadmin;
->>>>>>> Stashed changes
 		this.titolo = titolo;
-		
-		}
-
-	
-	public Questionariadmin() {
-		
 	}
 	
-<<<<<<< Updated upstream
+	public QuestionariAdmin() {
+		
+	}
 	public Integer getidquestionarioadmin() {
 		return idquestionariAdmin;
 	}
-
-	public void setidquestionarioadmin(Integer idquestionarioadmin) {
-		this.idquestionariAdmin = idquestionariAdmin;
-=======
-	public Integer getidquestionariadmin() {
-		return idquestionariadmin;
-	}
-
-	public void setidquestionarioadmin(Integer idquestionariadmin) {
-		this.idquestionariadmin = idquestionariadmin;
->>>>>>> Stashed changes
-	}
 	
+	public Integer getIdquestionariAdmin() {
+		return idquestionariAdmin;
+	}
+
+	public void setIdquestionariAdmin(Integer idquestionariAdmin) {
+		this.idquestionariAdmin = idquestionariAdmin;
+	}
+
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}

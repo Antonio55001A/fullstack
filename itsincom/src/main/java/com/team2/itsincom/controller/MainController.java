@@ -33,7 +33,7 @@ import com.team2.itsincom.Dao.UtentiDao;
 import com.team2.itsincom.model.Utenti;
 import com.team2.itsincom.model.Domande;
 import com.team2.itsincom.model.Questionari;
-import com.team2.itsincom.model.Questionariadmin;
+import com.team2.itsincom.model.QuestionariAdmin;
 import com.team2.itsincom.model.ReCaptchaResponse;
 import com.team2.itsincom.model.Tokens;
 
@@ -483,7 +483,7 @@ public class MainController {
 			int i=0;
 
 			
-			Questionariadmin questionarioAdmin = new Questionariadmin(null,titoloQuestionario);
+			QuestionariAdmin questionarioAdmin = new QuestionariAdmin(null,titoloQuestionario);
 			questionarioAdminRepository.save(questionarioAdmin);
 			
 			while(i<len) {

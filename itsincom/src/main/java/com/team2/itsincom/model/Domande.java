@@ -19,11 +19,11 @@ public class Domande {
 	
 	@ManyToOne
     @JoinColumn(name = "idquestionariAdmin")
-	Questionariadmin questionarioAdmin;
+	QuestionariAdmin questionarioAdmin;
 	
 	public String testo="";
 	
-	public Domande(Integer iddomanda, String testo, Questionariadmin questionarioAdmin) {
+	public Domande(Integer iddomanda, String testo, QuestionariAdmin questionarioAdmin) {
 		super();
 		this.iddomanda = iddomanda;
 		this.questionarioAdmin = questionarioAdmin;

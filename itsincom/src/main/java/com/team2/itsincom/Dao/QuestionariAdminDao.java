@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.team2.itsincom.model.Questionariadmin;
+import com.team2.itsincom.model.QuestionariAdmin;
 
-public interface QuestionariAdminDao extends CrudRepository<Questionariadmin, Integer>{
+public interface QuestionariAdminDao extends CrudRepository<QuestionariAdmin, Integer>{
 	
-	Questionariadmin findByidquestionariadmin (int idquestionariadmin);
-	List<Questionariadmin> findByTitolo(String titolo);
+	QuestionariAdmin findByidquestionariadmin (int idquestionariadmin);
+	List<QuestionariAdmin> findByTitolo(String titolo);
 	
 }
