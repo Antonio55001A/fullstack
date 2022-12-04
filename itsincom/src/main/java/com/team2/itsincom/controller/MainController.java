@@ -10,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZonedDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 import java.security.MessageDigest;
@@ -56,7 +57,7 @@ public class MainController {
 	private QuestionariDao questionarioRepository; 
 	
 	@Autowired
-	private QuestionariAdminDao questionarioAdminRepository;
+	private QuestionariAdminDao questionariAdminRepository;
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -222,6 +223,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("home");
 		mav.addObject("utente", utente);
+		mav.addObject("questionari", questionarioRepository.questionariUtente(utente.getIdutente()));
 		System.out.println(" loggato mav");
 		System.out.println(mav);
 		
@@ -484,7 +486,7 @@ public class MainController {
 
 			
 			QuestionariAdmin questionarioAdmin = new QuestionariAdmin(null,titoloQuestionario);
-			questionarioAdminRepository.save(questionarioAdmin);
+			questionariAdminRepository.save(questionarioAdmin);
 			
 			while(i<len) {
 				
@@ -501,8 +503,37 @@ public class MainController {
 
 		return "redirect:/dashboard";
 	}
+	
+	/*
+	@GetMapping("/home") 
+	public ModelAndView Homepage(Model model,HttpSession session) {
+		Utenti utente = (Utenti) session.getAttribute("loggedUtente");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("home");
+		mav.addObject("utente", utente);
+		mav.addObject("questionari", questionarioRepository.questionariUtente(utente.getIdutente()));
+		System.out.println(" loggato mav");
+		System.out.println(mav);
+		
+		// utente loggato dati: 
+		System.out.println(utente.email);	
+		System.out.println(utente.password);
+		System.out.println(utente.idutente);
+
+		return mav;
+	}
+	*/
+	
+	@GetMapping("/questionario")
+	public ModelAndView getQuestionarioUtente() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("questionario");
+		// Ottengo la lista di questionari attivi
+		Collection <QuestionariAdmin> questionarioAttivo = questionariAdminRepository.questionariStato(true);
+		mav.addObject("questionarioAttivo", questionarioAttivo);
+		// Uso iterator e next per ottenere il primo e unico elemento della lista, dal momento in cui solo in questionario è attivo
+		mav.addObject("risposteUtente", domandaRepository.domandeQuestionarioAttivo(questionarioAttivo.iterator().next().getIdquestionariAdmin()));
+		return mav;
 	}
 	
-
-	
-
+}

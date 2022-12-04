@@ -1,7 +1,5 @@
 package com.team2.itsincom.model;
 
-import java.time.ZonedDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +17,8 @@ public class QuestionariAdmin {
 	
 	@Size(min=2, max=30)
 	public String titolo;
+	
+	public boolean stato;
 
 	public QuestionariAdmin(Integer idquestionariAdmin,String titolo ) {
 		super();
@@ -26,12 +26,14 @@ public class QuestionariAdmin {
 		this.titolo = titolo;
 	}
 	
-	public QuestionariAdmin() {
-		
+	public QuestionariAdmin(Integer idquestionariAdmin, @Size(min = 2, max = 30) String titolo, boolean stato) {
+		super();
+		this.idquestionariAdmin = idquestionariAdmin;
+		this.titolo = titolo;
+		this.stato = stato;
 	}
-	public Integer getidquestionarioadmin() {
-		return idquestionariAdmin;
-	}
+
+	public QuestionariAdmin() {}
 	
 	public Integer getIdquestionariAdmin() {
 		return idquestionariAdmin;
@@ -47,6 +49,14 @@ public class QuestionariAdmin {
 	
 	public String getTitolo() {
 		return titolo;
+	}
+
+	public boolean isStato() {
+		return stato;
+	}
+
+	public void setStato(boolean stato) {
+		this.stato = stato;
 	}
 	
 }

@@ -29,13 +29,9 @@ public class Domande {
 		this.questionarioAdmin = questionarioAdmin;
 
 		this.testo = testo;
-		}
-
-	
-	public Domande() {
-		
 	}
 	
+	public Domande() {}
 	
 	public Integer getiddomanda() {
 		return iddomanda;
@@ -45,11 +41,11 @@ public class Domande {
 		this.iddomanda = iddomanda;
 	}
 
-	public String getTestoDomanda() {
+	public String getTesto() {
 		return testo;
 	}
 
-	public void testoDomanda(String token) {
+	public void testo(String testo) {
 		this.testo = testo;
 	}
 
