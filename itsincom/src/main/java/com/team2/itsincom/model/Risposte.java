@@ -30,6 +30,21 @@ public class Risposte {
 	
 	public Integer voto = 0;
 	
+	public Risposte(Integer idrisposta, Domande domanda, Questionari questionario, Integer voto) {
+		super();
+		this.idrisposta = idrisposta;
+		this.domanda = domanda;
+		this.questionario = questionario;
+		this.voto = voto;
+	}
+
+	public Risposte(Domande domanda, Questionari questionario, Integer voto) {
+		super();
+		this.domanda = domanda;
+		this.questionario = questionario;
+		this.voto = voto;
+	}
+
 	public Risposte(Integer idrisposta, Integer voto) {
 		
 		this.idrisposta = idrisposta;
