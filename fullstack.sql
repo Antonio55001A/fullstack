@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 04, 2022 alle 04:21
+-- Creato il: Dic 06, 2022 alle 18:59
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -55,6 +55,13 @@ CREATE TABLE `questionari` (
   `data` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `questionari`
+--
+
+INSERT INTO `questionari` (`idquestionario`, `idutente`, `data`) VALUES
+(1, 4, '2022-12-06 18:54:49');
+
 -- --------------------------------------------------------
 
 --
@@ -63,16 +70,17 @@ CREATE TABLE `questionari` (
 
 CREATE TABLE `questionariadmin` (
   `idquestionariAdmin` int(11) NOT NULL,
-  `titolo` varchar(45) NOT NULL
+  `titolo` varchar(45) NOT NULL,
+  `stato` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `questionariadmin`
 --
 
-INSERT INTO `questionariadmin` (`idquestionariAdmin`, `titolo`) VALUES
-(1, 'Questionario 1'),
-(2, 'Questionario 2');
+INSERT INTO `questionariadmin` (`idquestionariAdmin`, `titolo`, `stato`) VALUES
+(1, 'Questionario 1', b'0'),
+(2, 'Questionario 2', b'1');
 
 -- --------------------------------------------------------
 
@@ -86,6 +94,14 @@ CREATE TABLE `risposte` (
   `idquestionario` int(11) NOT NULL,
   `voto` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `risposte`
+--
+
+INSERT INTO `risposte` (`idrisposta`, `iddomanda`, `idquestionario`, `voto`) VALUES
+(1, 9, 1, 4),
+(2, 10, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -127,7 +143,8 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`idutente`, `nome`, `cognome`, `email`, `password`) VALUES
-(3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', 'e10adc3949ba59abbe56e057f20f883e');
+(3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', 'e10adc3949ba59abbe56e057f20f883e'),
+(4, 'Fabio', 'Fiorattini', 'fabio@mail.com', '42e08734abcd844e77432cb050e7747e');
 
 --
 -- Indici per le tabelle scaricate
@@ -157,6 +174,7 @@ ALTER TABLE `questionariadmin`
 -- Indici per le tabelle `risposte`
 --
 ALTER TABLE `risposte`
+  ADD PRIMARY KEY (`idrisposta`),
   ADD KEY `idquestionario` (`idquestionario`),
   ADD KEY `iddomanda` (`iddomanda`);
 
@@ -188,13 +206,19 @@ ALTER TABLE `domande`
 -- AUTO_INCREMENT per la tabella `questionari`
 --
 ALTER TABLE `questionari`
-  MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `questionariadmin`
 --
 ALTER TABLE `questionariadmin`
   MODIFY `idquestionariAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT per la tabella `risposte`
+--
+ALTER TABLE `risposte`
+  MODIFY `idrisposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `tokens`
@@ -206,7 +230,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Limiti per le tabelle scaricate
