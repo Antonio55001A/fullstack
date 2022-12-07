@@ -476,13 +476,13 @@ public class MainController {
 			
 				i+=1;
 
-			List<Domande> domandeQuestionario1= (List<Domande>) domandaRepository.domandeQuestionarioAttivo(i);
+			List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.domandeQuestionarioAttivo(i);
 			//
-			model.addAttribute("domandeQuestionario"+i, domandeQuestionario1);
+			model.addAttribute("domandeQuestionario", domandeQuestionario);
 
 			
 			System.out.println("domande questionario: "+i);
-			System.out.println(domandeQuestionario1);
+			System.out.println(domandeQuestionario);
 
 			
 			}
