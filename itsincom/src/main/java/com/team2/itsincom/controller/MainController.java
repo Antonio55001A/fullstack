@@ -464,6 +464,7 @@ public class MainController {
 
 		//verifica utente per poter visualizzare la pagina
 		Utenti utente= (Utenti) session.getAttribute("loggedUtente");
+		
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
 			
 			List<QuestionariAdmin> questionariAdmin= (List<QuestionariAdmin>) questionariAdminRepository.findAll();
@@ -472,6 +473,7 @@ public class MainController {
 			int listCount = questionariAdmin.size();
 			int i = 0;
 			
+			//Bisogna capire come passare le domande relative giuste all'html
 			while(i<listCount) {
 			
 				i+=1;
@@ -486,6 +488,22 @@ public class MainController {
 
 			
 			}
+			
+			// calcolo media
+			int media = risposteRepository.calcolaMedia();
+			System.out.println(media);
+			model.addAttribute("media", media);
+			
+			i=0;
+			while (i<5) {
+				i+=1;
+				int numeroRecensori = risposteRepository.calcolaNumeroRecensori(i);
+				model.addAttribute("stelle"+i, numeroRecensori);
+				System.out.println("hanno votato "+ i + " stelle: " + numeroRecensori +" Recensori" );
+	
+			}
+			
+			
 
 			
 			
@@ -559,7 +577,7 @@ public class MainController {
 			Integer idDomanda = Integer.parseInt(risposte[i].split(":")[0]);
 			Integer voto = Integer.parseInt(risposte[i].split(":")[1]);
 			// Inserisco la risposta con l'id della domanda e il relativo voto nel database
-			risposteRepository.save(new Risposte(domandaRepository.findByIddomanda(idDomanda), questionarioRepository.findByIdquestionario(idQuestionario), voto));
+			risposteRepository.save(new Risposte(null,domandaRepository.findByIddomanda(idDomanda), questionarioRepository.findByIdquestionario(idQuestionario), voto));
 		}
 		return "redirect:/home";
 	}
