@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.team2.itsincom.Dao.DomandeDao;
 import com.team2.itsincom.Dao.QuestionariAdminDao;
 import com.team2.itsincom.Dao.QuestionariDao;
+import com.team2.itsincom.Dao.RisposteDao;
 import com.team2.itsincom.Dao.TokensDao;
 import com.team2.itsincom.Dao.UtentiDao;
 import com.team2.itsincom.model.Utenti;
@@ -36,6 +37,7 @@ import com.team2.itsincom.model.Domande;
 import com.team2.itsincom.model.Questionari;
 import com.team2.itsincom.model.QuestionariAdmin;
 import com.team2.itsincom.model.ReCaptchaResponse;
+import com.team2.itsincom.model.Risposte;
 import com.team2.itsincom.model.Tokens;
 
 @Controller
@@ -58,6 +60,9 @@ public class MainController {
 	
 	@Autowired
 	private QuestionariAdminDao questionariAdminRepository;
+	
+	@Autowired
+	private RisposteDao risposteRepository;
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -528,26 +533,6 @@ public class MainController {
 		return "redirect:/dashboard";
 	}
 	
-	/*
-	@GetMapping("/home") 
-	public ModelAndView Homepage(Model model,HttpSession session) {
-		Utenti utente = (Utenti) session.getAttribute("loggedUtente");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
-		mav.addObject("utente", utente);
-		mav.addObject("questionari", questionarioRepository.questionariUtente(utente.getIdutente()));
-		System.out.println(" loggato mav");
-		System.out.println(mav);
-		
-		// utente loggato dati: 
-		System.out.println(utente.email);	
-		System.out.println(utente.password);
-		System.out.println(utente.idutente);
-
-		return mav;
-	}
-	*/
-	
 	@GetMapping("/questionario")
 	public ModelAndView getQuestionarioUtente() {
 		ModelAndView mav = new ModelAndView();
@@ -558,6 +543,25 @@ public class MainController {
 		// Uso iterator e next per ottenere il primo e unico elemento della lista, dal momento in cui solo in questionario è attivo
 		mav.addObject("risposteUtente", domandaRepository.domandeQuestionarioAttivo(questionarioAttivo.iterator().next().getIdquestionariAdmin()));
 		return mav;
+	}
+	
+	@RequestMapping(value="/questionario", method=RequestMethod.POST)
+	public String postQuestionarioUtente(@RequestParam("listavoti") String listavoti, HttpSession session) {
+		// Prendo l'utente loggato e ne ricavo l'id
+		Utenti utente = (Utenti) session.getAttribute("loggedUtente");
+		// Creo il record del questionario appena compilato
+		Questionari ultimo = questionarioRepository.save(new Questionari(utente,ZonedDateTime.now()));
+		Integer idQuestionario = ultimo.getidquestionario();
+		// Prendo la stringa contenente la lista di voti dati
+		String [] risposte = listavoti.split(";");
+		for(int i=0; i < risposte.length; i++) {
+			// La risposta è in formato idDomanda:voto, di conseguenza faccio la split per ottenerne i valori
+			Integer idDomanda = Integer.parseInt(risposte[i].split(":")[0]);
+			Integer voto = Integer.parseInt(risposte[i].split(":")[1]);
+			// Inserisco la risposta con l'id della domanda e il relativo voto nel database
+			risposteRepository.save(new Risposte(domandaRepository.findByIddomanda(idDomanda), questionarioRepository.findByIdquestionario(idQuestionario), voto));
+		}
+		return "redirect:/home";
 	}
 	
 }

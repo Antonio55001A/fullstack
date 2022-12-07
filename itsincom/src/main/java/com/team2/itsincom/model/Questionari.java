@@ -27,13 +27,23 @@ public class Questionari {
 	
 	ZonedDateTime data = ZonedDateTime.now();
 	
-	
-	public Questionari(Integer idquestionario,  ZonedDateTime data) {
+	public Questionari(Utenti utente, ZonedDateTime data) {
+		super();
+		this.utente = utente;
+		this.data = data;
+	}
+
+	public Questionari() {
+		super();
+	}
+
+	public Questionari(Integer idquestionario, Utenti utente, ZonedDateTime data) {
 		super();
 		this.idquestionario = idquestionario;
-		this.data = data;	
-		}
-	
+		this.utente = utente;
+		this.data = data;
+	}
+
 	public Integer getidquestionario() {
 		return idquestionario;
 	}

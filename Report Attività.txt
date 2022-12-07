@@ -9,3 +9,11 @@
  - Fabio Fiorattini: Pagina html home e questionario (lato utente), funzionamento questionario
  - Abdelhakim Hamse: Adattamento/miglioria wireframe e lavoro su css
  - Insieme: Progettazione struttura delle pagine html
+
+04/12/2022
+ - Antonio De Biase: Implementazione questionario admin con js
+ - Fabio Fiorattini: Aggiunta questionario attivo lato utente
+ - Abdelhakim Hamse: Continuo del lavoro su css (esmepio: stelle recensione)
+
+06/12/2022
+ - Fabio Fiorattini: Implementazione invio risposte del questionario utente

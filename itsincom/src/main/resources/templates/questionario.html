@@ -1,7 +1,7 @@
 <html lang="en"> 
     <head>  
         <title>Questionario</title>  
-    </head>  
+    </head>
 	<body>
 		<h1>Compila il questionario</h1>
 		<a href="/home">Torna alla home</a>
@@ -10,15 +10,16 @@
 				<div class="questionario">
 					<h3 th:text="${q.titolo}"></h3>
 					<form action="/questionario" method="post">
+						<input type="hidden" value="" id="listavoti" th:name="listavoti">
 						<th:block th:each="r:${risposteUtente}">
 							<p th:text="${r.getTesto()}"></p>
 							<!-- Voto recensione -->
 							<span class="star-rating">
-							<input type="radio" th:id="|d${r.getiddomanda()}v1|" value=1 th:name="|voto${r.getiddomanda()}|" required="required"><i></i>
-							<input type="radio" th:id="|d${r.getiddomanda()}v2|" value=2 th:name="|voto${r.getiddomanda()}|"><i></i>
-							<input type="radio" th:id="|d${r.getiddomanda()}v3|" value=3 th:name="|voto${r.getiddomanda()}|"><i></i>
-							<input type="radio" th:id="|d${r.getiddomanda()}v4|" value=4 th:name="|voto${r.getiddomanda()}|"><i></i>
-							<input type="radio" th:id="|d${r.getiddomanda()}v5|" value=5 th:name="|voto${r.getiddomanda()}|"><i></i>
+								<input type="radio" class="voto" onclick="votoDomande()" th:value="|${r.getiddomanda()}:1|" th:name="|voto${r.getiddomanda()}|" required="required"><i></i>
+								<input type="radio" class="voto" onclick="votoDomande()" th:value="|${r.getiddomanda()}:2|" th:name="|voto${r.getiddomanda()}|"><i></i>
+								<input type="radio" class="voto" onclick="votoDomande()" th:value="|${r.getiddomanda()}:3|" th:name="|voto${r.getiddomanda()}|"><i></i>
+								<input type="radio" class="voto" onclick="votoDomande()" th:value="|${r.getiddomanda()}:4|" th:name="|voto${r.getiddomanda()}|"><i></i>
+								<input type="radio" class="voto" onclick="votoDomande()" th:value="|${r.getiddomanda()}:5|" th:name="|voto${r.getiddomanda()}|"><i></i>
 							</span>
 						</th:block>
 						<br>
@@ -28,6 +29,20 @@
 			</th:block>
 		</div>
 	</body>
+	<script>
+		function votoDomande(){
+			var listavoti = document.getElementById("listavoti");
+			listavoti.value = "";
+			var voti = document.getElementsByClassName("voto");
+			for(i = 0; i < voti.length; i++){
+				if(voti[i].checked){
+					listavoti.value += voti[i].value;
+					listavoti.value += ";";
+				}
+			}
+			// console.log(listavoti.value);
+		}
+	</script>
 	<style> .star-rating {
 		margin: 25px 0 0px;
 	   font-size: 0;
