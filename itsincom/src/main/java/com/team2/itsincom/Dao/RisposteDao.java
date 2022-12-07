@@ -16,7 +16,7 @@ public interface RisposteDao extends CrudRepository <Risposte, Integer>{
 	
 	
 	@Query(value = "SELECT AVG(voto) as voto FROM risposte", nativeQuery = true)
-	public int calcolaMedia();
+	public float calcolaMedia();
 	
 	@Query(value = "SELECT COUNT(voto) FROM risposte WHERE voto = :numero", nativeQuery = true)
 	public int calcolaNumeroRecensori(Integer numero);

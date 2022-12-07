@@ -490,7 +490,7 @@ public class MainController {
 			}
 			
 			// calcolo media
-			int media = risposteRepository.calcolaMedia();
+			float media = risposteRepository.calcolaMedia();
 			System.out.println(media);
 			model.addAttribute("media", media);
 			
