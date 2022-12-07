@@ -16,25 +16,46 @@
 
 <a href="/aggiungiQuestionario">Aggiungi una domanda</a>
 
-<table class="table table-hover">
-			<tr>
-				<th>Lista domande: </th>
+<h1>Lista questionari: </h1>
 
-   			</tr>
-   			 	  <th:block th:each="domande : ${domande}">
-	      		
-    			<tr>
-    			
-    			<td>
-    			<form th:id="${domande.iddomanda}" >
-    			
-	      			<p th:text="|domanda ${domande.iddomanda}|" th:name="${domande.iddomanda}"><p>
-	      			<p th:text="${domande.testo}" class='ml-1'></p>
-	      			<button class="btn btn-primary mt-3" type="submit" th:id="|bottone${domande.iddomanda}|">Clicca qui </a>
-	      		</form>
-	      		</td>
-	      		</tr>
-   			</th:block>
+<table class="table table-hover">
+
+   			
+		   	<div class="container-fluid">
+		        <div class="row flex-row flex-nowrap mt-4">
+		   			
+		     			
+		            <th:block th:each="questionariAdmin : ${questionariAdmin}">
+		                    
+		          <div class="col-5">
+		                <div class="card ">
+		                    <div class="card-body">
+		                      <h3 class="card-text" th:text="|${questionariAdmin.titolo}|"></h6>
+		
+						<th:block th:each="domandeQuestionario1 : ${domandeQuestionario1}">
+		                      <!-- da qui ciclo for per le domande  -->
+		                      <h6 class="card-text mt-3" th:text="|domanda ${domandeQuestionario1.iddomanda}|"></h6>
+		                      <p class="card-text" th:text="|${domandeQuestionario1.testo}|"></p>
+		                     
+
+            
+   			</th:block>  
+   		  <a href="#" class="btn btn-primary">Attiva il form</a>
+   		  </div>
+		</div>
+	</div>
+   			
+   		</th:block>  
+   		
+   		   			
+   			</div>
+   			</div>
+   		</table>
+   			
+
+   			
+
+   			
 
 </body>
 

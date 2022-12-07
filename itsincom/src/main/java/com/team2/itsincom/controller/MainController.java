@@ -460,6 +460,30 @@ public class MainController {
 		//verifica utente per poter visualizzare la pagina
 		Utenti utente= (Utenti) session.getAttribute("loggedUtente");
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
+			
+			List<QuestionariAdmin> questionariAdmin= (List<QuestionariAdmin>) questionariAdminRepository.findAll();
+			model.addAttribute("questionariAdmin", questionariAdmin);
+			
+			int listCount = questionariAdmin.size();
+			int i = 0;
+			
+			while(i<listCount) {
+			
+				i+=1;
+
+			List<Domande> domandeQuestionario1= (List<Domande>) domandaRepository.domandeQuestionarioAttivo(i);
+			//
+			model.addAttribute("domandeQuestionario"+i, domandeQuestionario1);
+
+			
+			System.out.println("domande questionario: "+i);
+			System.out.println(domandeQuestionario1);
+
+			
+			}
+
+			
+			
 			return "dashboard";
 		}
 		 
@@ -485,7 +509,7 @@ public class MainController {
 			int i=0;
 
 			
-			QuestionariAdmin questionarioAdmin = new QuestionariAdmin(null,titoloQuestionario);
+			QuestionariAdmin questionarioAdmin = new QuestionariAdmin(null,titoloQuestionario,false);
 			questionariAdminRepository.save(questionarioAdmin);
 			
 			while(i<len) {

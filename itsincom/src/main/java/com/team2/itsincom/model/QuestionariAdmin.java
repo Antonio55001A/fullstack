@@ -20,11 +20,7 @@ public class QuestionariAdmin {
 	
 	public boolean stato;
 
-	public QuestionariAdmin(Integer idquestionariAdmin,String titolo ) {
-		super();
-		this.idquestionariAdmin = idquestionariAdmin;
-		this.titolo = titolo;
-	}
+
 	
 	public QuestionariAdmin(Integer idquestionariAdmin, @Size(min = 2, max = 30) String titolo, boolean stato) {
 		super();
