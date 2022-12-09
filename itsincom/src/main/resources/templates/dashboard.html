@@ -17,43 +17,43 @@
 
 
 
-<a href="/aggiungiQuestionario" class="ml-3">Aggiungi una domanda</a>
+<a href="/aggiungiQuestionario" class="ml-3">Crea un questionario</a>
 
-<h1 class="mt-3 ml-3">Lista questionari: </h1>
+<h1 class="mt-3 mb-3 ml-3">Lista questionari </h1>
 
 
-		   	<div class="container-fluid">
-		        <div class="row flex-row flex-nowrap mt-4">
+
+	<div class="container-fluid">		        
+    <div id="contenitori-questionari" class="row flex-row flex-nowrap mt-4"></div>
+    
+    		        
+   			</div>
+   			</div>
+
+
+<th:block th:each="domandeQuestionario,iter : ${domandeQuestionario}">
+		                      <!-- da qui ciclo for per le domande  -->
+		                   <div th:class="|${domandeQuestionario.getquestionarioAdmin().idquestionariAdmin}|">
+		                     <td> <h6 class="card-text" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
+		                    </div>
+						</th:block>  
+
+
 		   			
 		     			
-		 <th:block th:each="questionariAdmin : ${questionariAdmin}">
-		                    
-		          <div class="col-5">
-		                <div class="card ">
-		                    <div class="card-body">
-		                    <td>  <h3 class="card-text" th:text="|${questionariAdmin.titolo}|"></h3></td>
+		 <th:block th:each="questionariAdmin,iter: ${questionariAdmin}">
+	
+           <td>  <h3 th:id="|titolo${iter.index+1}|" class="titoli-questionari" th:text="|${questionariAdmin.titolo}|"></h3></td>
 		
-						<th:block th:each="domandeQuestionario : ${domandeQuestionario}">
-		                      <!-- da qui ciclo for per le domande  -->
-		                     <td><h6 class="card-text mt-3" th:text="|Domanda ${domandeQuestionario.iddomanda}|"></h6></td>
-		                     <td> <p class="card-text" th:text="|${domandeQuestionario.testo}|"></p></td>
-						</th:block>  
-							<td> <a href="#" class="btn btn-primary">Attiva il form</a></td>
-				
-				   		  
-				   		  </div>
-						</div>
-					</div>
-   			
-				</th:block>  
+	</th:block>  
+					
    		
-   		   			
-   			</div>
-   			</div>
+   
+
    			
    <div class="">
 <th:block th:each="media : ${media}">
-		                     <td><h2 class="mt-3 ml-3" th:text="|${media} / 5|"></h2></td>
+<td><h2 class="mt-3 ml-3" th:text="|${media} / 5|"></h2></td>
 
    </div>
   
@@ -105,7 +105,78 @@
 </div>
 
         <script>
+        
+        let titoli_questionari=document.getElementsByClassName("titoli-questionari");
+        let numeroquestionari=titoli_questionari.length;
+        let i = 1;
+        let contenitoriQuestionari = document.getElementById(
+          "contenitori-questionari"
+        );
 
+        function PosizionaDomanda(numeroquestionari) {
+          while (i <= numeroquestionari) {
+
+            console.log("Questionario #" + i);
+            let div = document.createElement("div");
+            div.setAttribute("id", "q" + i);
+            div.setAttribute("class", "col-5");
+
+            let div1 = document.createElement("div");
+            div1.setAttribute("class", "card");
+
+            let div2 = document.createElement("div");
+            div2.setAttribute("class", "card-body");
+
+            let div3 = document.createElement("div");
+            div3.setAttribute("id", "titolo-q"+i);
+
+            titoloQuestionario=document.getElementById("titolo"+i);
+
+            let divContenitoreDomande = document.createElement("div");
+            divContenitoreDomande.setAttribute("id", "domande" + i);
+
+            let domande = document.getElementsByClassName(i);
+            console.log("Numero domande: " + domande.length);
+
+            // append di tutti i div per la creazione del modello 
+
+            contenitoriQuestionari.append(div);
+            div.append(div1);
+            div1.append(div2);
+            div2.append(div3);
+            div3.append(titoloQuestionario);
+            div2.append(divContenitoreDomande);
+
+            for (let b = 0; b < domande.length;b++ ) {
+              divContenitoreDomande.append(domande[b]);
+            }
+
+            let div_bottoni = document.createElement("div");
+            div_bottoni.setAttribute("class","d-flex text-white");
+
+            let bottone_attiva= document.createElement("a");
+            bottone_attiva.setAttribute("class", "btn btn-primary  mt-3");
+
+         //   let bottone_modifica= document.createElement("a");
+           // bottone_modifica.setAttribute("class", "btn btn-dark ml-3 mt-3");
+
+            let bottone_elimina= document.createElement("a");
+            bottone_elimina.setAttribute("class", "btn btn-danger ml-3 mt-3");
+            
+            bottone_attiva.innerHTML="Attiva";
+          //  bottone_modifica.innerHTML="Modifica";
+            bottone_elimina.innerHTML="Elimina";
+            
+            div2.append(div_bottoni);
+            div_bottoni.append(bottone_attiva);
+          //  div_bottoni.append(bottone_modifica);
+            div_bottoni.append(bottone_elimina);
+
+            i += 1;
+            
+          }
+        }
+   
             function GeneraStella(parametro){
                 let i=0;
                 let div_totale= document.getElementById("items");
@@ -130,15 +201,20 @@
             
             }
             
+            
+            
             // richiamo funzione
+            
+            PosizionaDomanda(numeroquestionari);
+            
             GeneraStella(5);
             GeneraStella(4);
             GeneraStella(3);
             GeneraStella(2);
             GeneraStella(1);
+          
             
-            
-            
+
             </script> 
 
             <style>

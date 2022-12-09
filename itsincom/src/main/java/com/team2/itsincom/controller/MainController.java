@@ -478,8 +478,9 @@ public class MainController {
 			
 				i+=1;
 
-			List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.domandeQuestionarioAttivo(i);
+			//List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.domandeQuestionarioAttivo(i);
 			//
+			List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.findAll();
 			model.addAttribute("domandeQuestionario", domandeQuestionario);
 
 			
@@ -502,9 +503,6 @@ public class MainController {
 				System.out.println("hanno votato "+ i + " stelle: " + numeroRecensori +" Recensori" );
 	
 			}
-			
-			
-
 			
 			
 			return "dashboard";

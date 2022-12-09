@@ -19,7 +19,7 @@ public class Domande {
 	
 	@ManyToOne
     @JoinColumn(name = "idquestionariAdmin")
-	QuestionariAdmin questionarioAdmin;
+	public QuestionariAdmin questionarioAdmin;
 	
 	public String testo="";
 	
@@ -47,6 +47,14 @@ public class Domande {
 
 	public void testo(String testo) {
 		this.testo = testo;
+	}
+	
+	public QuestionariAdmin getquestionarioAdmin() {
+		return questionarioAdmin;
+	}
+
+	public void setQuestionariAdmin(QuestionariAdmin questionarioAdmin) {
+		this.questionarioAdmin = questionarioAdmin;
 	}
 
 }
