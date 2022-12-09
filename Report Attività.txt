@@ -13,7 +13,13 @@
 04/12/2022
  - Antonio De Biase: Implementazione questionario admin con js
  - Fabio Fiorattini: Aggiunta questionario attivo lato utente
- - Abdelhakim Hamse: Continuo del lavoro su css (esmepio: stelle recensione)
+ - Abdelhakim Hamse: Continuo del lavoro su css (esempio: stelle recensione)
 
 06/12/2022
+ - Antonio De Biase: Implementazione visualizzazione questionario
  - Fabio Fiorattini: Implementazione invio risposte del questionario utente
+
+09/12/2022
+ - Antonio De Biase: Implementazione script js per i questionari con domande
+ - Fabio Fiorattini: Implementazione invio risposte del questionario utente
+ - Abdelhakim Hamse: Continuo del lavoro su css
