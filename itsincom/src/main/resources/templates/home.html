@@ -5,18 +5,13 @@
 	<body>
 		<h1 th:text="|Benvenuto, ${utente.nome} ${utente.cognome}!|"></h1>
 		<a href="/questionario">Rispondi al questionario</a>
-		<!-- 
+		<input type="hidden">
 		<div id="sezioneQuestionari">
 			<th:block th:each="q:${questionari}">
 				<div class="questionario">
-					<h3 th:text="${q.nome}"></h3>
-					<th:block th:each="r:${risposteUtente}">
-						<p th:text="${r.domanda.getTesto()}"></p>
-						<p th:text="${r.voto}"></p>
-					</th:block>
+					<h3 th:text="${#temporals.format(q.getdata(),'dd/MM/yyyy HH:mm:ss')}"></h3>
 				</div>
 			</th:block>
 		</div>
-		 -->
 	</body>
 </html>
