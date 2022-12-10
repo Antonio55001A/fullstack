@@ -19,15 +19,14 @@ public class Domande {
 	
 	@ManyToOne
     @JoinColumn(name = "idquestionariAdmin")
-	public QuestionariAdmin questionarioAdmin;
+	public QuestionariAdmin questionariAdmin;
 	
 	public String testo="";
 	
-	public Domande(Integer iddomanda, String testo, QuestionariAdmin questionarioAdmin) {
+	public Domande(Integer iddomanda, String testo, QuestionariAdmin questionariAdmin) {
 		super();
 		this.iddomanda = iddomanda;
-		this.questionarioAdmin = questionarioAdmin;
-
+		this.questionariAdmin = questionariAdmin;
 		this.testo = testo;
 	}
 	
@@ -49,12 +48,12 @@ public class Domande {
 		this.testo = testo;
 	}
 	
-	public QuestionariAdmin getquestionarioAdmin() {
-		return questionarioAdmin;
+	public QuestionariAdmin getquestionariAdmin() {
+		return questionariAdmin;
 	}
 
-	public void setQuestionariAdmin(QuestionariAdmin questionarioAdmin) {
-		this.questionarioAdmin = questionarioAdmin;
+	public void setQuestionariAdmin(QuestionariAdmin questionariAdmin) {
+		this.questionariAdmin = questionariAdmin;
 	}
 
 }

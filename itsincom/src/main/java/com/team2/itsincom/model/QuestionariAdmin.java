@@ -1,9 +1,12 @@
 package com.team2.itsincom.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -20,7 +23,8 @@ public class QuestionariAdmin {
 	
 	public boolean stato;
 
-
+	@OneToMany(mappedBy = "questionariAdmin")
+	public Set <QuestionariAdmin> questionariAdmin;
 	
 	public QuestionariAdmin(Integer idquestionariAdmin, @Size(min = 2, max = 30) String titolo, boolean stato) {
 		super();

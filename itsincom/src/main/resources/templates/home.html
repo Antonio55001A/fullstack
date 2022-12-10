@@ -11,6 +11,10 @@
 				<div class="questionario">
 					<h3 th:text="${#temporals.format(q.getdata(),'dd/MM/yyyy HH:mm:ss')}"></h3>
 					<h3 th:text="${q.questionariadmin.titolo}"></h3>
+					<!-- Domande questionario singolo -->
+					<th:block th:each="d:${domandeDao.domandeQuestionarioAttivo(q.questionariadmin.getIdquestionariAdmin())}">
+						<p th:text="${d.testo}">
+					</th:block>
 				</div>
 			</th:block>
 		</div>
