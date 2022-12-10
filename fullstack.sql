@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 06, 2022 alle 18:59
+-- Creato il: Dic 10, 2022 alle 13:27
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -52,6 +52,7 @@ INSERT INTO `domande` (`iddomanda`, `testo`, `idquestionariAdmin`) VALUES
 CREATE TABLE `questionari` (
   `idquestionario` int(11) NOT NULL,
   `idutente` int(11) NOT NULL,
+  `idquestionariAdmin` int(11) NOT NULL,
   `data` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,8 +60,11 @@ CREATE TABLE `questionari` (
 -- Dump dei dati per la tabella `questionari`
 --
 
-INSERT INTO `questionari` (`idquestionario`, `idutente`, `data`) VALUES
-(1, 4, '2022-12-06 18:54:49');
+INSERT INTO `questionari` (`idquestionario`, `idutente`, `idquestionariAdmin`, `data`) VALUES
+(1, 4, 2, '2022-12-06 18:54:49'),
+(2, 4, 2, '2022-12-08 14:50:59'),
+(3, 4, 1, '2022-12-08 15:25:39'),
+(4, 5, 1, '2022-12-10 13:21:04');
 
 -- --------------------------------------------------------
 
@@ -79,8 +83,8 @@ CREATE TABLE `questionariadmin` (
 --
 
 INSERT INTO `questionariadmin` (`idquestionariAdmin`, `titolo`, `stato`) VALUES
-(1, 'Questionario 1', b'0'),
-(2, 'Questionario 2', b'1');
+(1, 'Questionario 1', b'1'),
+(2, 'Questionario 2', b'0');
 
 -- --------------------------------------------------------
 
@@ -101,7 +105,13 @@ CREATE TABLE `risposte` (
 
 INSERT INTO `risposte` (`idrisposta`, `iddomanda`, `idquestionario`, `voto`) VALUES
 (1, 9, 1, 4),
-(2, 10, 1, 5);
+(2, 10, 1, 5),
+(3, 9, 2, 3),
+(4, 10, 2, 3),
+(5, 7, 3, 5),
+(6, 8, 3, 3),
+(7, 7, 4, 4),
+(8, 8, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -144,7 +154,8 @@ CREATE TABLE `utenti` (
 
 INSERT INTO `utenti` (`idutente`, `nome`, `cognome`, `email`, `password`) VALUES
 (3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', 'e10adc3949ba59abbe56e057f20f883e'),
-(4, 'Fabio', 'Fiorattini', 'fabio@mail.com', '42e08734abcd844e77432cb050e7747e');
+(4, 'Fabio', 'Fiorattini', 'fabio@mail.com', '42e08734abcd844e77432cb050e7747e'),
+(5, 'Hakim', 'Hamse', 'Hakim@mail.com', '218b8847b3a743fea25f6e0b33ed3bae');
 
 --
 -- Indici per le tabelle scaricate
@@ -162,7 +173,8 @@ ALTER TABLE `domande`
 --
 ALTER TABLE `questionari`
   ADD PRIMARY KEY (`idquestionario`),
-  ADD KEY `idutente` (`idutente`);
+  ADD KEY `idutente` (`idutente`),
+  ADD KEY `idquestionariAdmin` (`idquestionariAdmin`);
 
 --
 -- Indici per le tabelle `questionariadmin`
@@ -206,7 +218,7 @@ ALTER TABLE `domande`
 -- AUTO_INCREMENT per la tabella `questionari`
 --
 ALTER TABLE `questionari`
-  MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `questionariadmin`
@@ -218,7 +230,7 @@ ALTER TABLE `questionariadmin`
 -- AUTO_INCREMENT per la tabella `risposte`
 --
 ALTER TABLE `risposte`
-  MODIFY `idrisposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idrisposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `tokens`
@@ -230,7 +242,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Limiti per le tabelle scaricate
@@ -246,7 +258,8 @@ ALTER TABLE `domande`
 -- Limiti per la tabella `questionari`
 --
 ALTER TABLE `questionari`
-  ADD CONSTRAINT `questionari_ibfk_1` FOREIGN KEY (`idutente`) REFERENCES `utenti` (`idutente`);
+  ADD CONSTRAINT `questionari_ibfk_1` FOREIGN KEY (`idutente`) REFERENCES `utenti` (`idutente`),
+  ADD CONSTRAINT `questionari_ibfk_2` FOREIGN KEY (`idquestionariAdmin`) REFERENCES `questionariadmin` (`idquestionariAdmin`);
 
 --
 -- Limiti per la tabella `risposte`

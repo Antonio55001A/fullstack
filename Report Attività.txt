@@ -21,5 +21,8 @@
 
 09/12/2022
  - Antonio De Biase: Implementazione script js per i questionari con domande
- - Fabio Fiorattini: Implementazione invio risposte del questionario utente
+ - Fabio Fiorattini: Aiuto js di Antonio
  - Abdelhakim Hamse: Continuo del lavoro su css
+
+10/12/2022
+ - Fabio Fiorattini: Visualizzazione titolo questionario lato utente

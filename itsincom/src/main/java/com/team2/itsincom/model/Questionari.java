@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,18 +19,20 @@ public class Questionari {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer idquestionario;
 	
-	
-	
 	@ManyToOne
     @JoinColumn(name = "idutente")
     public Utenti utente;
 	
+	@OneToOne
+	@JoinColumn(name = "idquestionariAdmin")
+	public QuestionariAdmin questionariadmin;
 	
 	ZonedDateTime data = ZonedDateTime.now();
 	
-	public Questionari(Utenti utente, ZonedDateTime data) {
+	public Questionari(Utenti utente, QuestionariAdmin questionariadmin, ZonedDateTime data) {
 		super();
 		this.utente = utente;
+		this.questionariadmin = questionariadmin;
 		this.data = data;
 	}
 

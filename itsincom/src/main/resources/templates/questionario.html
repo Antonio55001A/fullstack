@@ -11,6 +11,7 @@
 					<h3 th:text="${q.titolo}"></h3>
 					<form action="/questionario" method="post">
 						<input type="hidden" value="" id="listavoti" th:name="listavoti">
+						<input type="hidden" th:value="${q.getIdquestionariAdmin()}" th:name="idquestionarioAttivo">
 						<th:block th:each="r:${risposteUtente}">
 							<p th:text="${r.getTesto()}"></p>
 							<!-- Voto recensione -->

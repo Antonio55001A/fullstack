@@ -562,11 +562,12 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/questionario", method=RequestMethod.POST)
-	public String postQuestionarioUtente(@RequestParam("listavoti") String listavoti, HttpSession session) {
+	public String postQuestionarioUtente(@RequestParam("listavoti") String listavoti, @RequestParam("idquestionarioAttivo") Integer idquestionarioAttivo, HttpSession session) {
 		// Prendo l'utente loggato e ne ricavo l'id
 		Utenti utente = (Utenti) session.getAttribute("loggedUtente");
+		QuestionariAdmin questionarioAttivo = questionariAdminRepository.findByIdquestionariAdmin(idquestionarioAttivo);
 		// Creo il record del questionario appena compilato
-		Questionari ultimo = questionarioRepository.save(new Questionari(utente,ZonedDateTime.now()));
+		Questionari ultimo = questionarioRepository.save(new Questionari(utente,questionarioAttivo,ZonedDateTime.now()));
 		Integer idQuestionario = ultimo.getidquestionario();
 		// Prendo la stringa contenente la lista di voti dati
 		String [] risposte = listavoti.split(";");
