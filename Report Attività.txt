@@ -25,4 +25,4 @@
  - Abdelhakim Hamse: Continuo del lavoro su css
 
 10/12/2022
- - Fabio Fiorattini: Visualizzazione titolo e domande questionario lato utente
+ - Fabio Fiorattini: Visualizzazione titolo, domande e voti questionario utente

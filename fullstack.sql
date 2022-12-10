@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 10, 2022 alle 13:27
+-- Creato il: Dic 10, 2022 alle 18:12
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -38,10 +38,10 @@ CREATE TABLE `domande` (
 --
 
 INSERT INTO `domande` (`iddomanda`, `testo`, `idquestionariAdmin`) VALUES
-(7, 'Come ti sei trovato?', 1),
+(7, 'Come valuti i laboratori?', 1),
 (8, 'Come è stato il nostro sito?', 1),
-(9, 'Di dove sei?', 2),
-(10, 'Come è stato il sito?', 2);
+(9, 'Come valuti gli esami svolti?', 2),
+(10, 'Le spiegazioni sono state chiare?', 2);
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ CREATE TABLE `utenti` (
 INSERT INTO `utenti` (`idutente`, `nome`, `cognome`, `email`, `password`) VALUES
 (3, 'Antonio', 'de Biase', 'antoniodebiase2003@gmail.com', 'e10adc3949ba59abbe56e057f20f883e'),
 (4, 'Fabio', 'Fiorattini', 'fabio@mail.com', '42e08734abcd844e77432cb050e7747e'),
-(5, 'Hakim', 'Hamse', 'Hakim@mail.com', '218b8847b3a743fea25f6e0b33ed3bae');
+(5, 'Hakim', 'Hamse', 'hakim@mail.com', '218b8847b3a743fea25f6e0b33ed3bae');
 
 --
 -- Indici per le tabelle scaricate

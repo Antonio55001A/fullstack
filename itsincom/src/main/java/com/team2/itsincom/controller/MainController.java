@@ -229,7 +229,7 @@ public class MainController {
 		mav.setViewName("home");
 		mav.addObject("utente", utente);
 		mav.addObject("questionari", questionarioRepository.questionariUtente(utente.getIdutente()));
-		mav.addObject("domandeDao", domandaRepository);
+		mav.addObject("risposte", risposteRepository);
 		System.out.println(" loggato mav");
 		System.out.println(mav);
 		// utente loggato dati: 
