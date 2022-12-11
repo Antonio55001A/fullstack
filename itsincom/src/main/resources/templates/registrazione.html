@@ -12,30 +12,30 @@
         <div class="container">
 	        <form action="/registrazione" method="post">  
 	               <h3>Registrazione Utente</h3><br>
-	                    <label for="email">Email</label>
-	                    <input type="text" name="email" id="email" placeholder= "Email" ></input>
+	                    <label for="email" style="margin-left: 20%;">Email</label>
+	                    <input type="text" name="email" id="email" placeholder= "Email" style="width: 350px; margin-left: 20%;"></input>
 	                    
-	                    <label for="nome">Nome</label>
-	                    <input type="text" name="nome" id="nome" placeholder= "Inserisci il tuo nome" ></input>
+	                    <label for="nome" style="margin-left: 20%;">Nome</label>
+	                    <input type="text" name="nome" id="nome" placeholder= "Inserisci il tuo nome" style="width: 350px; margin-left: 20%;"></input>
 	                    
-	                    <label for="cognome">Cognome</label>
-	                    <input type="text" name="cognome" id="cognome" placeholder= "Inserisci il tuo cognome" ></input>
+	                    <label for="cognome" style="margin-left: 20%;">Cognome</label>
+	                    <input type="text" name="cognome" id="cognome" placeholder= "Inserisci il tuo cognome" style="width: 350px; margin-left: 20%;"></input>
 	                    
 	                    
 	              
-	                    <label for="password">Password</label>
-	                    <input type="password" name="password" id="password" placeholder="Password"></input> <br>
+	                    <label for="password" style="margin-left: 20%;">Password</label>
+	                    <input type="password" name="password" id="password" placeholder="Password" style="width: 350px; margin-left: 20%;"></input> <br>
 	                
 			                <!--  Success message -->
 					  	<br>
 						<div th:if="${param.success}">
-							<div class="alert-success"> Grazie per esserti registrato! </div>
+							<div class="alert-success" style="display: flex;justify-content: center; align-items: center; width: 350px; margin-left: 20%;"> Grazie per esserti registrato! </div>
 						</div>
 						
 						<br>
-						<div class="g-recaptcha" data-sitekey="6LcmWycjAAAAABYEa6musMfmCv9iD8aylBcIAoOr"></div>
+						<div class="g-recaptcha" data-sitekey="6LcmWycjAAAAABYEa6musMfmCv9iD8aylBcIAoOr" style="margin-left: 25%;"></div>
 						<div th:if="${param.error}">
-							<div class="alert-error"> Inserisci tutti i campi! </div>
+							<div class="alert-error" style="display: flex;justify-content: center; align-items: center; width: 350px; margin-left: 20%;"> Inserisci tutti i campi! </div>
 						</div>
 						
 	              <div  class="btn-lgn" style="display: flex;justify-content: center; align-items: center;">
