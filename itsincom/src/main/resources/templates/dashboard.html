@@ -155,13 +155,13 @@
             div_bottoni.setAttribute("class","d-flex text-white");
 
             let bottone_attiva= document.createElement("a");
-            bottone_attiva.setAttribute("class", "btn btn-primary  mt-3");
+            bottone_attiva.setAttribute("class", "button-attiva");
 
          //   let bottone_modifica= document.createElement("a");
            // bottone_modifica.setAttribute("class", "btn btn-dark ml-3 mt-3");
 
             let bottone_elimina= document.createElement("a");
-            bottone_elimina.setAttribute("class", "btn btn-danger ml-3 mt-3");
+            bottone_elimina.setAttribute("class", "button-elimina");
             
             bottone_attiva.innerHTML="Attiva";
           //  bottone_modifica.innerHTML="Modifica";
@@ -229,6 +229,57 @@
                 .checked {
                   color: orange;
                     }
+
+                .button-attiva {
+                  background-color: rgb(64, 125, 3);
+                  border-radius: 24px;
+                  border-style: none;
+                  box-shadow: rgb(0 0 0 / 20%) 0 3px 5px -1px, rgb(0 0 0 / 14%) 0 6px 10px 0, rgb(0 0 0 / 12%) 0 1px 18px 0;
+                  box-sizing: border-box;
+                  color: #3c4043;
+                  cursor: pointer;
+                  fill: currentcolor;
+                  font-family: inherit;
+                  font-size: 14px;
+                  font-weight: 500;
+                  height: 50px;
+                  width: 150px;
+                  padding: 2px 24px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                
+                }
+
+                .button-attiva:hover {
+                    color: #9518fc;
+                }
+
+                .button-elimina {
+                  background-color: rgb(229, 27, 27);
+                  border-radius: 24px;
+                  border-style: none;
+                  box-shadow: rgb(0 0 0 / 20%) 0 3px 5px -1px, rgb(0 0 0 / 14%) 0 6px 10px 0, rgb(0 0 0 / 12%) 0 1px 18px 0;
+                  box-sizing: border-box;
+                  color: #3c4043;
+                  cursor: pointer;
+                  fill: currentcolor;
+                  font-family: inherit;
+                  font-size: 14px;
+                  font-weight: 500;
+                  height: 50px;
+                  width: 150px;
+                  padding: 2px 24px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-left: 4px;
+                
+                }
+
+                .button-elimina:hover {
+                    color: #9518fc;
+                }
             </style>
 
 </body>
