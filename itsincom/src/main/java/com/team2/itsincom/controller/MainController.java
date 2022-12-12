@@ -280,7 +280,7 @@ public class MainController {
 
     		Integer id= utente.idutente;
     		
-    		System.out.println(" ricerca utente tramite id");
+    		System.out.println(" ricerca utente tramite id:");
 
     		Utenti cliente = utenteRepository.findByIdutente(id);
     		
@@ -467,6 +467,9 @@ public class MainController {
 		
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
 			
+			List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.findAll();
+
+			
 			List<QuestionariAdmin> questionariAdmin= (List<QuestionariAdmin>) questionariAdminRepository.findAll();
 			model.addAttribute("questionariAdmin", questionariAdmin);
 			
@@ -480,7 +483,6 @@ public class MainController {
 
 			//List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.domandeQuestionarioAttivo(i);
 			//
-			List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.findAll();
 			model.addAttribute("domandeQuestionario", domandeQuestionario);
 
 			
@@ -504,6 +506,12 @@ public class MainController {
 	
 			}
 			
+			Iterable<Risposte> numeroRisposte= risposteRepository.findAll();
+			model.addAttribute("numeroRisposte", numeroRisposte);
+
+			System.out.println("Siamo la lita di Risposte");	
+			System.out.println(numeroRisposte);	
+
 			
 			return "dashboard";
 		}
