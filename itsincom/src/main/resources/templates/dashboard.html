@@ -33,7 +33,7 @@
 
 <th:block th:each="domandeQuestionario,iter : ${domandeQuestionario}">
 		                      <!-- da qui ciclo for per le domande  -->
-		                   <div th:class="|${domandeQuestionario.getquestionarioAdmin().idquestionariAdmin}|">
+		                   <div th:class="|${domandeQuestionario.getquestionariAdmin().idquestionariAdmin}|">
 		                     <td> <h6 class="card-text" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
 		                    </div>
 						</th:block>  
