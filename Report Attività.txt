@@ -26,3 +26,9 @@
 
 10/12/2022
  - Fabio Fiorattini: Visualizzazione titolo, domande e voti questionario utente
+
+11/12/2022
+ - Abdelhakim Hamse: Modifica css dell'interfaccia login e registrazione
+
+12/12/2022
+ - Fabio Fiorattini: Lavoro css su home utente
