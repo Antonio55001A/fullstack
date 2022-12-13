@@ -255,7 +255,7 @@
             for (let index = 0; index < Valutazioni.length; index++) {
                 yValues.push(Valutazioni[index].textContent);
             }
-            var xValues = ["1", "2", "3", "4", "5",""];
+            var xValues = ["5 stelle", "4 stelle", "3 stelle", "2 stelle", "1 stella",""];
             var barColors = ["brown","red", "green","blue","orange","brown"];
 
             new Chart("myChart", {
@@ -468,6 +468,7 @@
             		//input.className = "css-class-name"; // set the CSS class
             		container = document.getElementById("container-input");
             		container.appendChild(input); // put it into the DOM
+            		input.style.display = 'none';
 
             		$("#attivaQuestionario").submit();
 
