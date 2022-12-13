@@ -8,12 +8,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 </head>
 
 <body>
-<h1 class="ml-3"> Dashboard Admin </h1>
+<h1 class="ml-3 mt-3"> Dashboard Admin </h1>
 
 
 
@@ -34,9 +34,16 @@
 <th:block th:each="domandeQuestionario,iter : ${domandeQuestionario}">
 		                      <!-- da qui ciclo for per le domande  -->
 		                   <div th:class="|${domandeQuestionario.getquestionariAdmin().idquestionariAdmin}|">
+<<<<<<< HEAD
 
 		                     <td> <h6 th:class="|card-text Domanda:${domandeQuestionario.iddomanda}|" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
 
+=======
+		                     <td> <h6 th:class="|card-text Domanda:${domandeQuestionario.iddomanda}|" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
+
+		                     <td> <h6 class="card-text" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
+
+>>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
 		                    </div>
 						</th:block>  
 
@@ -48,6 +55,21 @@
            <td>  <h3 th:id="|titolo${iter.index+1}|" class="titoli-questionari" th:text="|${questionariAdmin.titolo}|"></h3></td>
 		
 	</th:block>  
+<<<<<<< HEAD
+=======
+					
+   		
+   
+
+   			
+   <div class="">
+<th:block th:each="media : ${media}">
+<td><h2 class="mt-3 ml-3" th:text="|${media} / 5|"></h2></td>
+				</th:block>  
+
+   </div>
+  
+>>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
  
     <h2 class="ml-3">Voti </h2>
 	<th:block th:each="media : ${media}">
@@ -94,18 +116,24 @@
 -->
 
 
-    <div id="items" class="form-group ml-3 mt-4">
+    <div id="items" class="form-group ml-3 mt-4 container">
+    <div class="row">
+    <div id="contenitore-stelle" class="col"></div>
+    <div id="contenitore-grafico"class="col">
+        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    </div>
+    </div>
 </div>
 
 
 
 
 
-<th:block th:each="domandeQuestionario : ${domandeQuestionario}">
+<th:block th:each="domandeQuestionario,iter : ${domandeQuestionario}">
 		                      <!-- da qui ciclo for per le domande  -->
 		                   <div th:id="|Domanda:${domandeQuestionario.iddomanda}|">
 		                   <td><h3 class="NumeroIndiceDomanda" th:text="${domandeQuestionario.iddomanda}" ></h3></td>
-		                     <td> <h4 th:class="|card-text|" th:text="|◉ ${domandeQuestionario.testo}|"></h4></td>
+		                     <td> <h4 th:class="|card-text|" th:text="|${iter.index+1}) ${domandeQuestionario.testo}|"></h4></td>
 		                    </div>
 						</th:block>  
 
@@ -178,14 +206,21 @@
             }
 
             let div_bottoni = document.createElement("div");
-            div_bottoni.setAttribute("class","d-flex text-white");
+            div_bottoni.setAttribute("class","d-flex text-white mt-3");
 
             let bottone_attiva= document.createElement("a");
+<<<<<<< HEAD
             bottone_attiva.setAttribute("style", "background-color: rgb(64, 125, 3) !important;");
             bottone_attiva.setAttribute("class", "button-elimina");
+=======
+            bottone_attiva.setAttribute("class", "btn btn-primary btn-lg ml-3");
+
+         //   let bottone_modifica= document.createElement("a");
+           // bottone_modifica.setAttribute("class", "btn btn-dark ml-3 mt-3");
+>>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
 
             let bottone_elimina= document.createElement("a");
-            bottone_elimina.setAttribute("class", "button-elimina");
+            bottone_elimina.setAttribute("class", "btn btn-danger btn-lg");
             
             bottone_attiva.innerHTML="Attiva";
             bottone_elimina.innerHTML="Elimina";
@@ -201,7 +236,7 @@
    
             function GeneraStella(parametro){
                 let i=0;
-                let div_totale= document.getElementById("items");
+                let div_totale= document.getElementById("contenitore-stelle");
                 let numero_recensioni=document.getElementById(parametro);
                 console.log(numero_recensioni);
             
@@ -221,6 +256,34 @@
                 odv.append(numero_recensioni);
                 div_totale.append(odv);
             
+            }
+            
+            function CreaGrafico(){
+            var yValues = [];
+            var Valutazioni=document.getElementsByClassName("numero-recensori");
+            for (let index = 0; index < Valutazioni.length; index++) {
+                yValues.push(Valutazioni[index].textContent);
+            }
+            var xValues = ["1", "2", "3", "4", "5",""];
+            var barColors = ["brown","red", "green","blue","orange","brown"];
+
+            new Chart("myChart", {
+              type: "bar",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues
+                }]
+              },
+              options: {
+                legend: {display: false},
+                title: {
+                  display: true,
+                  text: "Recensioni "
+                }
+              }
+            })
             }
             
           
@@ -250,8 +313,6 @@
             	  // converto le stringhe in numeri
             	  min = +min;
             	  max= +max;
-
-            	  recensioni = document.getElementById("recensioni");
 
             	  while(min<=max){
             	    // inizializzo le variabili che utilizzerò nel ciclo
@@ -376,8 +437,6 @@
 
             	          }
 
-            	            //recensioni.append(numeroRecensori);
-
             	          }
             	      }
 
@@ -419,7 +478,8 @@
             GeneraStella(3);
             GeneraStella(2);
             GeneraStella(1);
-          
+            
+            CreaGrafico();          
             
         	PosizionaDomandaeRisposte();
 
@@ -437,7 +497,10 @@
                 .checked {
                   color: orange;
                     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
                     
          .NumeroIndiceDomanda{
             display: none;
@@ -453,7 +516,10 @@
         
         #valutazioneDomande{
         display:none};
+<<<<<<< HEAD
 
+=======
+>>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
 
                 .button-attiva {
                   background-color: rgb(64, 125, 3);
@@ -507,7 +573,10 @@
                 .button-elimina:hover {
                     color: #9518fc;
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
             </style>
 
 </body>
