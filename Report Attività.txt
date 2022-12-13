@@ -32,3 +32,9 @@
 
 12/12/2022
  - Fabio Fiorattini: Lavoro css su home utente
+ - Abdelhakim Hamse: Lavoro css su pagine di accesso
+
+13/12/2022
+ - Antonio De Biase: Implementazione attiva ed elimina questinario
+ - Fabio Fiorattini: Prove su docker per database e springboot, modifiche css
+ - Abdelhakim Hamse: Conclusione wireframe e modifiche css
