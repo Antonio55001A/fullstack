@@ -34,16 +34,11 @@
 <th:block th:each="domandeQuestionario,iter : ${domandeQuestionario}">
 		                      <!-- da qui ciclo for per le domande  -->
 		                   <div th:class="|${domandeQuestionario.getquestionariAdmin().idquestionariAdmin}|">
-<<<<<<< HEAD
+
 
 		                     <td> <h6 th:class="|card-text Domanda:${domandeQuestionario.iddomanda}|" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
 
-=======
-		                     <td> <h6 th:class="|card-text Domanda:${domandeQuestionario.iddomanda}|" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
 
-		                     <td> <h6 class="card-text" th:text="|◉ ${domandeQuestionario.testo}|"></h6></td>
-
->>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
 		                    </div>
 						</th:block>  
 
@@ -55,8 +50,7 @@
            <td>  <h3 th:id="|titolo${iter.index+1}|" class="titoli-questionari" th:text="|${questionariAdmin.titolo}|"></h3></td>
 		
 	</th:block>  
-<<<<<<< HEAD
-=======
+
 					
    		
    
@@ -68,8 +62,7 @@
 				</th:block>  
 
    </div>
-  
->>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
+
  
     <h2 class="ml-3">Voti </h2>
 	<th:block th:each="media : ${media}">
@@ -209,15 +202,11 @@
             div_bottoni.setAttribute("class","d-flex text-white mt-3");
 
             let bottone_attiva= document.createElement("a");
-<<<<<<< HEAD
+
             bottone_attiva.setAttribute("style", "background-color: rgb(64, 125, 3) !important;");
             bottone_attiva.setAttribute("class", "button-elimina");
-=======
-            bottone_attiva.setAttribute("class", "btn btn-primary btn-lg ml-3");
 
-         //   let bottone_modifica= document.createElement("a");
-           // bottone_modifica.setAttribute("class", "btn btn-dark ml-3 mt-3");
->>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
+            bottone_attiva.setAttribute("class", "btn btn-primary btn-lg ml-3");
 
             let bottone_elimina= document.createElement("a");
             bottone_elimina.setAttribute("class", "btn btn-danger btn-lg");
@@ -497,10 +486,7 @@
                 .checked {
                   color: orange;
                     }
-<<<<<<< HEAD
 
-=======
->>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
                     
          .NumeroIndiceDomanda{
             display: none;
@@ -516,10 +502,7 @@
         
         #valutazioneDomande{
         display:none};
-<<<<<<< HEAD
 
-=======
->>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
 
                 .button-attiva {
                   background-color: rgb(64, 125, 3);
@@ -573,10 +556,7 @@
                 .button-elimina:hover {
                     color: #9518fc;
                 }
-<<<<<<< HEAD
 
-=======
->>>>>>> e74a1c9c48f8efc8099f41401a3e9f92d13ab154
             </style>
 
 </body>
