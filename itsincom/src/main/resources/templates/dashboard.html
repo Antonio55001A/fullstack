@@ -15,6 +15,10 @@
 <body>
 <h1 class="ml-3 mt-3"> Dashboard Admin </h1>
 
+<form class="form-horizontal" action="/attivaQuestionario" method="post"  id="attivaQuestionario" >
+<div id="container-input"></div>
+</form>
+<form class="form-horizontal" action="/aggiungiQuestionarioAdmin" method="post"  id="formtest" ></form>
 
 
 <a href="/aggiungiQuestionario" class="ml-3">Crea un questionario</a>
@@ -55,6 +59,7 @@
    		
    
 
+<h2 class="ml-3">Voti </h2>
    			
    <div class="">
 <th:block th:each="media : ${media}">
@@ -64,10 +69,7 @@
    </div>
 
  
-    <h2 class="ml-3">Voti </h2>
-	<th:block th:each="media : ${media}">
-		<h2 class="mt-3 ml-3" th:text="|${media} / 5|"></h2>
-	</th:block> 
+
     
     <!-- INSERIMENTO DEL NUMERO DI RECENSORI PER OGNI STELLA   -->
 		<th:block th:each="stelle1 : ${stelle1}">
@@ -204,12 +206,12 @@
             let bottone_attiva= document.createElement("a");
 
             bottone_attiva.setAttribute("style", "background-color: rgb(64, 125, 3) !important;");
-            bottone_attiva.setAttribute("class", "button-elimina");
-
+            //bottone_attiva.setAttribute("class", "button-elimina");
+          	bottone_attiva.setAttribute("onclick", "AttivaForum("+i+")");
             bottone_attiva.setAttribute("class", "btn btn-primary btn-lg ml-3");
 
             let bottone_elimina= document.createElement("a");
-            bottone_elimina.setAttribute("class", "btn btn-danger btn-lg");
+            bottone_elimina.setAttribute("class", "btn btn-danger btn-lg ml-3");
             
             bottone_attiva.innerHTML="Attiva";
             bottone_elimina.innerHTML="Elimina";
@@ -456,7 +458,20 @@
             	            }
 
 
-            
+            	function AttivaForum(id){
+
+            		var input = document.createElement("input");
+            		input.type = "text";
+            		input.value=id;
+            		input.setAttribute("id","idQuestionario");
+            		input.setAttribute("name","idQuestionario")
+            		//input.className = "css-class-name"; // set the CSS class
+            		container = document.getElementById("container-input");
+            		container.appendChild(input); // put it into the DOM
+
+            		$("#attivaQuestionario").submit();
+
+            		};
             
             // richiamo funzione
             

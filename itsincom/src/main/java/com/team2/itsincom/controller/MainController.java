@@ -557,6 +557,52 @@ public class MainController {
 		return "redirect:/dashboard";
 	}
 	
+	// Attiva questionario
+	
+	@RequestMapping(value="/attivaQuestionario", method=RequestMethod.POST)
+	public String AttivaQuestionario(@RequestParam("idQuestionario") String idquestionario) {
+		
+		// prendo tutti i questionari è li setto a false
+		List<QuestionariAdmin> questionariAdmin= (List<QuestionariAdmin>) questionariAdminRepository.findAll();
+		System.out.println(questionariAdmin);
+		System.out.println("provaSet");
+		
+		int counter = questionariAdmin.size();
+		int i=0;
+		
+		while(i<counter) {
+			QuestionariAdmin singoloQuestionario = questionariAdminRepository.findByIdquestionariAdmin(i);
+			if(singoloQuestionario!=null) {
+			singoloQuestionario.setStato(false);
+			System.out.println("modificato");
+			questionariAdminRepository.save(singoloQuestionario);
+
+
+		}
+			i++;
+
+		}
+	
+		// converto il parametro da stringa a numero
+		Integer number = Integer.valueOf(idquestionario);
+		System.out.println(number);
+
+		
+		// trovo il questionario nel db è lo setto a true		
+		QuestionariAdmin singoloQuestionari = questionariAdminRepository.findByIdquestionariAdmin(number);
+		System.out.println(singoloQuestionari);
+
+		singoloQuestionari.setStato(true);
+		System.out.println(singoloQuestionari.stato);
+		
+		questionariAdminRepository.save(singoloQuestionari);
+		
+		return "redirect:/dashboard";		
+	}
+	
+	
+	
+	// utente
 	@GetMapping("/questionario")
 	public ModelAndView getQuestionarioUtente() {
 		ModelAndView mav = new ModelAndView();
