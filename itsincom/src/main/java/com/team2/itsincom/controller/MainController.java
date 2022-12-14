@@ -477,6 +477,15 @@ public class MainController {
 			if(listCount==0) {
 				
 				return "redirect:/aggiungiQuestionario";
+			}else if(listCount==1) {
+				
+				for(QuestionariAdmin q:questionariAdmin) {
+					
+					q.setStato(true);
+					System.out.println("modificato");
+					questionariAdminRepository.save(q);
+				
+			}
 			}
 
 			
@@ -565,6 +574,8 @@ public class MainController {
 		
 		System.out.println("Sono la stringa: "+ splitTesto);
 		
+		
+		
 		if (splitTesto.contains("§")) {
 		  String[] domande = splitTesto.split("§");
 			int len = domande.length;
@@ -579,13 +590,10 @@ public class MainController {
 				 Domande domanda = new Domande(null,domande[i],questionarioAdmin);
 				 domandaRepository.save(domanda);
 				 i+=1;
-		}
+					}
+			}else {
+				return "redirect:/aggiungiQuestionario?error";
 			}
-		
-		//else {
-		  //throw new IllegalArgumentException("La stringa " + splitTesto + " non contiene virgole");
-		//}
-
 
 		return "redirect:/dashboard";
 	}
