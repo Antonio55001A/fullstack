@@ -59,4 +59,6 @@ public class QuestionariAdmin {
 		this.stato = stato;
 	}
 	
+	
+	
 }

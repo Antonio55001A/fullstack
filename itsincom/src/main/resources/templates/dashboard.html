@@ -15,9 +15,16 @@
 <body>
 <h1 class="ml-3 mt-3"> Dashboard Admin </h1>
 
+<form class="form-horizontal" action="/delete" method="post"  id="eliminaQuestionario" >
+<div id="container-input_1"></div>
+</form>
+
+
 <form class="form-horizontal" action="/attivaQuestionario" method="post"  id="attivaQuestionario" >
 <div id="container-input"></div>
 </form>
+
+
 <form class="form-horizontal" action="/aggiungiQuestionarioAdmin" method="post"  id="formtest" ></form>
 
 
@@ -50,8 +57,10 @@
 		   			
 		     			
 		 <th:block th:each="questionariAdmin,iter: ${questionariAdmin}">
+		 
+		 <td> <input type="text" class="questionari_id" th:value="${questionariAdmin.idquestionariAdmin}"></td>
 	
-           <td>  <h3 th:id="|titolo${iter.index+1}|" class="titoli-questionari" th:text="|${questionariAdmin.titolo}|"></h3></td>
+           <td>  <h3 th:id="|titolo${questionariAdmin.idquestionariAdmin}|" class="titoli-questionari" th:text="|${questionariAdmin.titolo}|"></h3></td>
 		
 	</th:block>  
 
@@ -157,17 +166,20 @@
         
         let titoli_questionari=document.getElementsByClassName("titoli-questionari");
         let numeroquestionari=titoli_questionari.length;
-        let i = 1;
+        let i = 0;
         let contenitoriQuestionari = document.getElementById(
           "contenitori-questionari"
         );
+        let id_questionari= document.getElementsByClassName("questionari_id");
+        console.log(id_questionari[0].value);
+        
 
         function PosizionaDomanda(numeroquestionari) {
-          while (i <= numeroquestionari) {
+          while (i < numeroquestionari) {
 
-            console.log("Questionario #" + i);
+            console.log("Questionario #" + id_questionari[i].value);
             let div = document.createElement("div");
-            div.setAttribute("id", "q" + i);
+            div.setAttribute("id", "q" + id_questionari[i].value);
             div.setAttribute("class", "col-5");
 
             let div1 = document.createElement("div");
@@ -177,14 +189,14 @@
             div2.setAttribute("class", "card-body");
 
             let div3 = document.createElement("div");
-            div3.setAttribute("id", "titolo-q"+i);
+            div3.setAttribute("id", "titolo-q"+id_questionari[i].value);
 
-            titoloQuestionario=document.getElementById("titolo"+i);
+            titoloQuestionario=document.getElementById("titolo"+id_questionari[i].value);
 
             let divContenitoreDomande = document.createElement("div");
-            divContenitoreDomande.setAttribute("id", "domande" + i);
+            divContenitoreDomande.setAttribute("id", "domande" + id_questionari[i].value);
 
-            let domande = document.getElementsByClassName(i);
+            let domande = document.getElementsByClassName(id_questionari[i].value);
             console.log("Numero domande: " + domande.length);
 
             // append di tutti i div per la creazione del modello 
@@ -207,11 +219,14 @@
 
             bottone_attiva.setAttribute("style", "background-color: rgb(64, 125, 3) !important;");
             //bottone_attiva.setAttribute("class", "button-elimina");
-          	bottone_attiva.setAttribute("onclick", "AttivaForum("+i+")");
+          	bottone_attiva.setAttribute("onclick", "AttivaForm("+id_questionari[i].value+")");
             bottone_attiva.setAttribute("class", "btn btn-primary btn-lg ml-3");
 
             let bottone_elimina= document.createElement("a");
             bottone_elimina.setAttribute("class", "btn btn-danger btn-lg ml-3");
+            bottone_elimina.setAttribute("onclick", "EliminaForm("+id_questionari[i].value+")");
+
+            
             
             bottone_attiva.innerHTML="Attiva";
             bottone_elimina.innerHTML="Elimina";
@@ -458,7 +473,7 @@
             	            }
 
 
-            	function AttivaForum(id){
+            	function AttivaForm(id){
 
             		var input = document.createElement("input");
             		input.type = "text";
@@ -473,8 +488,26 @@
             		$("#attivaQuestionario").submit();
 
             		};
+            		
+                	function EliminaForm(id){
+
+                		var input = document.createElement("input");
+                		input.type = "number";
+                		input.value=id;
+                		input.setAttribute("id","idQuestionario");
+                		input.setAttribute("name","idQuestionario")
+                		//input.className = "css-class-name"; // set the CSS class
+                		container = document.getElementById("container-input_1");
+                		container.appendChild(input); // put it into the DOM
+                		input.style.display = 'none';
+
+                		$("#eliminaQuestionario").submit();
+
+                		};
             
             // richiamo funzione
+            
+            console.log(numeroquestionari);
             
             PosizionaDomanda(numeroquestionari);
             
@@ -571,6 +604,11 @@
 
                 .button-elimina:hover {
                     color: #9518fc;
+                }
+                
+                .questionari_id{
+                
+                display:none;
                 }
 
             </style>
