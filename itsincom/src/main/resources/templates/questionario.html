@@ -6,7 +6,8 @@
 	<body>
 		<h1 class="ml-3">Compila il questionario</h1>
 		<h5><a href="/home" class="ml-3">Torna alla home</a></h5>
-		<div id="sezioneQuestionario">
+		<h4 class="ml-3" th:if="${questionarioAttivo.size()<=0}">Nessun questionario attivo ;(</h4>
+		<div th:if="${questionarioAttivo.size()>0}" id="sezioneQuestionario">
 			<th:block th:each="q:${questionarioAttivo}">
 				<div class="questionario">
 					<h2 class="mt-3 mb-3 ml-3" th:text="${q.titolo}"></h2>

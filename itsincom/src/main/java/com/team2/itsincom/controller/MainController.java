@@ -610,8 +610,10 @@ public class MainController {
 		// Ottengo la lista di questionari attivi
 		Collection <QuestionariAdmin> questionarioAttivo = questionariAdminRepository.questionariStato(true);
 		mav.addObject("questionarioAttivo", questionarioAttivo);
-		// Uso iterator e next per ottenere il primo e unico elemento della lista, dal momento in cui solo in questionario è attivo
-		mav.addObject("risposteUtente", domandaRepository.domandeQuestionarioAttivo(questionarioAttivo.iterator().next().getIdquestionariAdmin()));
+		if(questionarioAttivo.size()!=0) {
+			// Uso iterator e next per ottenere il primo e unico elemento della lista, dal momento in cui solo in questionario è attivo
+			mav.addObject("risposteUtente", domandaRepository.domandeQuestionarioAttivo(questionarioAttivo.iterator().next().getIdquestionariAdmin()));
+		}
 		return mav;
 	}
 	

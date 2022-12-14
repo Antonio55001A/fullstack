@@ -35,6 +35,10 @@
  - Abdelhakim Hamse: Lavoro css su pagine di accesso
 
 13/12/2022
- - Antonio De Biase: Implementazione attiva ed elimina questinario
+ - Antonio De Biase: Implementazione bottoni attiva ed elimina questionario
  - Fabio Fiorattini: Prove su docker per database e springboot, modifiche css
- - Abdelhakim Hamse: Conclusione wireframe e modifiche css
+ - Abdelhakim Hamse: Conclusione wireframe, modifiche css
+
+14/12/2022
+ - Antonio De Biase: Conclusione bottoni, risoluzione bug
+ - Fabio Fiorattini: Migliorie utente, prova su docker
