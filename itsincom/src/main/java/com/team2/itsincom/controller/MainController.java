@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -467,13 +469,24 @@ public class MainController {
 		
 		if(utente.email.compareTo("antoniodebiase2003@gmail.com")==0) {
 			
+			List<QuestionariAdmin> questionariAdmin= (List<QuestionariAdmin>) questionariAdminRepository.findAll();
+			int listCount = questionariAdmin.size();
+			
+			System.out.println(listCount);
+			
+			if(listCount==0) {
+				
+				return "redirect:/aggiungiQuestionario";
+			}
+
+			
+			/*if(listCount!=0) {*/
+			
 			List<Domande> domandeQuestionario= (List<Domande>) domandaRepository.findAll();
 
 			
-			List<QuestionariAdmin> questionariAdmin= (List<QuestionariAdmin>) questionariAdminRepository.findAll();
 			model.addAttribute("questionariAdmin", questionariAdmin);
 			
-			int listCount = questionariAdmin.size();
 			int i = 0;
 			
 			//Bisogna capire come passare le domande relative giuste all'html
@@ -493,6 +506,16 @@ public class MainController {
 			}
 			
 			// calcolo media
+			
+			List<Risposte> risposte= (List<Risposte>) risposteRepository.findAll();
+			listCount = risposte.size();
+			if(listCount==0) {
+				float media=0;
+				
+				return "dashboard";
+
+			}
+			
 			float media = risposteRepository.calcolaMedia();
 			System.out.println(media);
 			model.addAttribute("media", media);
@@ -515,16 +538,26 @@ public class MainController {
 			
 			return "dashboard";
 		}
+			
+		
 		 
 		return "redirect:/login";
 	}
 	
 	
+	
 	@GetMapping("/aggiungiQuestionario") 
 	public String aggiungiQuestionario() {
-		
+		System.out.println("uno");
+
 		return "aggiungiQuestionario";
 	}
+	
+	/*@GetMapping("/dashboard2") 
+	public String dashboard2() {
+		System.out.println("due");
+		return "dashboard2";
+	}*/
 	
 	// FUNZIONANTE, DA AGGIUNGERE CONTROLLO SU BOTTONE INVIO, IN SEGUITO TASK COMPLETATO
 	@RequestMapping(value="/aggiungiQuestionarioAdmin", method=RequestMethod.POST)
@@ -570,18 +603,15 @@ public class MainController {
 		int counter = questionariAdmin.size();
 		int i=0;
 		
-		while(i<counter) {
-			QuestionariAdmin singoloQuestionario = questionariAdminRepository.findByIdquestionariAdmin(i);
-			if(singoloQuestionario!=null) {
-			singoloQuestionario.setStato(false);
+		for(QuestionariAdmin q:questionariAdmin) {
+			
+			q.setStato(false);
 			System.out.println("modificato");
-			questionariAdminRepository.save(singoloQuestionario);
+			questionariAdminRepository.save(q);
 
 
 		}
-			i++;
 
-		}
 	
 		// converto il parametro da stringa a numero
 		Integer number = Integer.valueOf(idquestionario);
@@ -600,6 +630,17 @@ public class MainController {
 		return "redirect:/dashboard";		
 	}
 	
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	   public String deleteEmployee(@RequestParam("idQuestionario") Integer idquestionario) {
+		
+
+		   questionariAdminRepository.deleteById(idquestionario);
+
+			return "redirect:/dashboard";		
+
+	   }
+
 	
 	
 	// utente

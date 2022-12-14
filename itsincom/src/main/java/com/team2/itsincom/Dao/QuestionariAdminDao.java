@@ -19,8 +19,8 @@ public interface QuestionariAdminDao extends CrudRepository<QuestionariAdmin, In
 	
 	@Query(value = "SELECT * FROM questionariadmin WHERE stato=:stato", nativeQuery = true)
 	public Collection <QuestionariAdmin> questionariStato(boolean stato);
-	
-	
+
+
 	@Modifying
 	@Transactional
 	@Query(value = "Update questionariadmin Set stato=false", nativeQuery = true)
