@@ -147,7 +147,7 @@
 
 		<th:block th:each="numeroRisposte : ${numeroRisposte}">
 	<div th:class="|idDomanda${numeroRisposte.getdomanda().iddomanda}|">
-	  <td> <h6 th:name="|questionarioRelativo:${numeroRisposte.getquestionario().getQuestionariAdmin().idquestionariAdmin}|" class="card-text" th:text="|${numeroRisposte.voto}|"></h6></td>
+	  <td> <h6 th:name="|questionarioRelativo:${numeroRisposte.getquestionario().idquestionario}|" class="card-text" th:text="|${numeroRisposte.voto}|"></h6></td>
 		  </div>
 		
 		
@@ -165,7 +165,11 @@
     </div>
     
     
-   <table class="table mt-5">
+ <div class="ml-3 mt-4">
+ <h1>Questionari compilati dagli utenti</h1>
+ </div>
+    
+   <table class="table mt-3">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -173,13 +177,16 @@
             <th scope="col">Nome</th>
             <th scope="col">Cognome</th>
            <th scope="col">Data</th>
-            <th scope="col">idQuestionario Compilato</th>
+            <th scope="col">idQuestionario Admin</th>
+           <th scope="col">Nome Questionario</th>
+           <th scope="col">idQuestionario Utente</th>
            <th scope="col">Valutazione media</th>
 
           </tr>
         </thead>
         <tbody>
  <th:block th:each="questionari,iter  : ${questionari}">
+ 
           <tr>
             <td scope="row"><h5 th:text="|${iter.index}|"></h5></td>
             <td th:text="${questionari.getutente().idutente}"></td>
@@ -187,10 +194,9 @@
             <td th:text="${questionari.getutente().cognome}"></td>
            <td th:text="${#temporals.format(questionari.getdata(),'dd/MM/yyyy HH:mm:ss')}"></td>
            <td th:text="${questionari.getQuestionariAdmin().idquestionariAdmin}"></td>
-           <td><div th:class="Divmedia" th:id="|${questionari.getQuestionariAdmin().idquestionariAdmin}|" >
-           <script>
-           
-           </script>
+            <td th:text="${questionari.getQuestionariAdmin().titolo}"></td>
+          <td th:text="${questionari.idquestionario}"></td> 
+           <td><div class="Divmedia" th:id="|${questionari.idquestionario}|" >
            <td>
            
           </tr>
@@ -576,15 +582,14 @@
                             let elements = document.getElementsByName("questionarioRelativo:"+id);
                             console.log(elements);
                         for (let b=0;b<elements.length;b++){
-                            element = elements[i].textContent;
+                            element = elements[b].textContent;
                                 console.log(element)
                                 valore= +element;
                                 somma+=valore;
                                 console.log(somma);
                                 counter++
                             }
-                            media=somma/counter;
-                            
+                            media=parseFloat(somma/counter).toFixed(2);
                             console.log("sono la media:"+ media);
                             var TestoMedia = document.createElement("h5");
                             TestoMedia.textContent=media;    
