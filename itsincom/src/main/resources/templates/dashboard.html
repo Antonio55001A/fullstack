@@ -147,7 +147,7 @@
 
 		<th:block th:each="numeroRisposte : ${numeroRisposte}">
 	<div th:class="|idDomanda${numeroRisposte.getdomanda().iddomanda}|">
-	  <td> <h6 class="card-text" th:text="|${numeroRisposte.voto}|"></h6></td>
+	  <td> <h6 th:name="|questionarioRelativo:${numeroRisposte.getquestionario().getQuestionariAdmin().idquestionariAdmin}|" class="card-text" th:text="|${numeroRisposte.voto}|"></h6></td>
 		  </div>
 		
 		
@@ -187,6 +187,11 @@
             <td th:text="${questionari.getutente().cognome}"></td>
            <td th:text="${#temporals.format(questionari.getdata(),'dd/MM/yyyy HH:mm:ss')}"></td>
            <td th:text="${questionari.getQuestionariAdmin().idquestionariAdmin}"></td>
+           <td><div th:class="Divmedia" th:id="|${questionari.getQuestionariAdmin().idquestionariAdmin}|" >
+           <script>
+           
+           </script>
+           <td>
            
           </tr>
           
@@ -547,6 +552,45 @@
                 		$("#eliminaQuestionario").submit();
 
                 		};
+                		
+                        function GeneraMediaTabella(){
+                            
+
+                            let media;
+                            let somma;
+                            let valore;
+                            let i;
+                            let element;
+                            let counter;
+                            
+                            let Div_media=document.getElementsByClassName("Divmedia");
+                        for(i=0;i<Div_media.length;i++){
+                        	   media=0;
+                               somma=0;
+                               valore=0;
+                               counter=0
+                        	
+                            id=Div_media[i].getAttribute('id');
+                            console.log(id);
+                        
+                            let elements = document.getElementsByName("questionarioRelativo:"+id);
+                            console.log(elements);
+                        for (let b=0;b<elements.length;b++){
+                            element = elements[i].textContent;
+                                console.log(element)
+                                valore= +element;
+                                somma+=valore;
+                                console.log(somma);
+                                counter++
+                            }
+                            media=somma/counter;
+                            
+                            console.log("sono la media:"+ media);
+                            var TestoMedia = document.createElement("h5");
+                            TestoMedia.textContent=media;    
+                            Div_media[i].append(TestoMedia);
+                        }   
+                        }
             
             // richiamo funzione
             
@@ -563,6 +607,9 @@
             CreaGrafico();          
             
         	PosizionaDomandaeRisposte();
+        	
+            GeneraMediaTabella();
+
 
             </script> 
 
