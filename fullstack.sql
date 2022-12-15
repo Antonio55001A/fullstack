@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 10, 2022 alle 18:12
+-- Creato il: Dic 15, 2022 alle 14:47
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -38,10 +38,10 @@ CREATE TABLE `domande` (
 --
 
 INSERT INTO `domande` (`iddomanda`, `testo`, `idquestionariAdmin`) VALUES
-(7, 'Come valuti i laboratori?', 1),
-(8, 'Come è stato il nostro sito?', 1),
-(9, 'Come valuti gli esami svolti?', 2),
-(10, 'Le spiegazioni sono state chiare?', 2);
+(11, 'Valuta la qualità delle lezioni in presenza', 3),
+(12, 'Valuta la qualità delle lezioni a distanza', 3),
+(13, 'Valuta la qualità generale degli esami svolti', 4),
+(14, 'Valuta la coerenza delle domande con gli argomenti studiati', 4);
 
 -- --------------------------------------------------------
 
@@ -61,10 +61,9 @@ CREATE TABLE `questionari` (
 --
 
 INSERT INTO `questionari` (`idquestionario`, `idutente`, `idquestionariAdmin`, `data`) VALUES
-(1, 4, 2, '2022-12-06 18:54:49'),
-(2, 4, 2, '2022-12-08 14:50:59'),
-(3, 4, 1, '2022-12-08 15:25:39'),
-(4, 5, 1, '2022-12-10 13:21:04');
+(5, 4, 3, '2022-12-14 23:47:50'),
+(6, 4, 4, '2022-12-14 23:53:25'),
+(7, 5, 4, '2022-12-14 23:53:45');
 
 -- --------------------------------------------------------
 
@@ -83,8 +82,8 @@ CREATE TABLE `questionariadmin` (
 --
 
 INSERT INTO `questionariadmin` (`idquestionariAdmin`, `titolo`, `stato`) VALUES
-(1, 'Questionario 1', b'1'),
-(2, 'Questionario 2', b'0');
+(3, 'Lezioni', b'0'),
+(4, 'Esami', b'1');
 
 -- --------------------------------------------------------
 
@@ -104,14 +103,12 @@ CREATE TABLE `risposte` (
 --
 
 INSERT INTO `risposte` (`idrisposta`, `iddomanda`, `idquestionario`, `voto`) VALUES
-(1, 9, 1, 4),
-(2, 10, 1, 5),
-(3, 9, 2, 3),
-(4, 10, 2, 3),
-(5, 7, 3, 5),
-(6, 8, 3, 3),
-(7, 7, 4, 4),
-(8, 8, 4, 5);
+(9, 11, 5, 5),
+(10, 12, 5, 3),
+(11, 13, 6, 5),
+(12, 14, 6, 4),
+(13, 13, 7, 4),
+(14, 14, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -132,7 +129,9 @@ CREATE TABLE `tokens` (
 
 INSERT INTO `tokens` (`idtoken`, `idutente`, `valore`, `data`) VALUES
 (1, 3, 'lJBKGXaEeiY=', '2022-12-01 12:40:47'),
-(2, 3, 'bPTaW5qszSI=', '2022-12-04 04:14:09');
+(2, 3, 'bPTaW5qszSI=', '2022-12-04 04:14:09'),
+(3, 4, '08FRwqRSMog=', '2022-12-13 15:10:13'),
+(4, 4, 'ti0-mnWwyPA=', '2022-12-15 09:16:29');
 
 -- --------------------------------------------------------
 
@@ -174,7 +173,7 @@ ALTER TABLE `domande`
 ALTER TABLE `questionari`
   ADD PRIMARY KEY (`idquestionario`),
   ADD KEY `idutente` (`idutente`),
-  ADD KEY `idquestionariAdmin` (`idquestionariAdmin`);
+  ADD KEY `questionari_ibfk_2` (`idquestionariAdmin`);
 
 --
 -- Indici per le tabelle `questionariadmin`
@@ -212,37 +211,37 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `domande`
 --
 ALTER TABLE `domande`
-  MODIFY `iddomanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `iddomanda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT per la tabella `questionari`
 --
 ALTER TABLE `questionari`
-  MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idquestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `questionariadmin`
 --
 ALTER TABLE `questionariadmin`
-  MODIFY `idquestionariAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idquestionariAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `risposte`
 --
 ALTER TABLE `risposte`
-  MODIFY `idrisposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idrisposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT per la tabella `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `idtoken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idtoken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idutente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Limiti per le tabelle scaricate
@@ -252,21 +251,21 @@ ALTER TABLE `utenti`
 -- Limiti per la tabella `domande`
 --
 ALTER TABLE `domande`
-  ADD CONSTRAINT `fk_questionariAdmin` FOREIGN KEY (`idquestionariAdmin`) REFERENCES `questionariadmin` (`idquestionariAdmin`);
+  ADD CONSTRAINT `fk_questionariAdmin` FOREIGN KEY (`idquestionariAdmin`) REFERENCES `questionariadmin` (`idquestionariAdmin`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `questionari`
 --
 ALTER TABLE `questionari`
   ADD CONSTRAINT `questionari_ibfk_1` FOREIGN KEY (`idutente`) REFERENCES `utenti` (`idutente`),
-  ADD CONSTRAINT `questionari_ibfk_2` FOREIGN KEY (`idquestionariAdmin`) REFERENCES `questionariadmin` (`idquestionariAdmin`);
+  ADD CONSTRAINT `questionari_ibfk_2` FOREIGN KEY (`idquestionariAdmin`) REFERENCES `questionariadmin` (`idquestionariAdmin`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `risposte`
 --
 ALTER TABLE `risposte`
   ADD CONSTRAINT `risposte_ibfk_1` FOREIGN KEY (`idquestionario`) REFERENCES `questionari` (`idquestionario`),
-  ADD CONSTRAINT `risposte_ibfk_2` FOREIGN KEY (`iddomanda`) REFERENCES `domande` (`iddomanda`);
+  ADD CONSTRAINT `risposte_ibfk_2` FOREIGN KEY (`iddomanda`) REFERENCES `domande` (`iddomanda`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `tokens`
