@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<h1 class="ml-3 mt-3"> Dashboard Admin </h1>
+<h1 class="ml-3 mt-2"> Dashboard Admin </h1>
 
 <form class="form-horizontal" action="/delete" method="post"  id="eliminaQuestionario" >
 <div id="container-input_1"></div>
@@ -82,10 +82,12 @@
     
     <!-- INSERIMENTO DEL NUMERO DI RECENSORI PER OGNI STELLA   -->
 		<th:block th:each="stelle1 : ${stelle1}">
-		
+		 <div th:if="${stelle1 != null}">
 		<td><span id="1"  class="numero-recensori" th:text="|${stelle1}"></span></td>
 		
 		</th:block>  
+		
+		
 		
 		<th:block th:each="stelle2 : ${stelle2}">
 		
@@ -161,6 +163,36 @@
 
       </div>
     </div>
+    
+    
+   <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">idUtente</th> 
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+           <th scope="col">Data</th>
+            <th scope="col">idQuestionario Compilato</th>
+           <th scope="col">Valutazione media</th>
+
+          </tr>
+        </thead>
+        <tbody>
+ <th:block th:each="questionari,iter  : ${questionari}">
+          <tr>
+            <td scope="row"><h5 th:text="|${iter.index}|"></h5></td>
+            <td th:text="${questionari.getutente().idutente}"></td>
+            <td th:text="${questionari.getutente().nome}"></td>
+            <td th:text="${questionari.getutente().cognome}"></td>
+           <td th:text="${#temporals.format(questionari.getdata(),'dd/MM/yyyy HH:mm:ss')}"></td>
+           <td th:text="${questionari.getQuestionariAdmin().idquestionariAdmin}"></td>
+           
+          </tr>
+          
+        </tbody>
+      </table>
+      </th:block>
 
         <script>
         
@@ -226,8 +258,7 @@
             bottone_elimina.setAttribute("class", "btn btn-danger btn-lg ml-3");
             bottone_elimina.setAttribute("onclick", "EliminaForm("+id_questionari[i].value+")");
 
-            
-            
+
             bottone_attiva.innerHTML="Attiva";
             bottone_elimina.innerHTML="Elimina";
             
@@ -257,10 +288,21 @@
                     odv.append(stella);
                     i+=1;
                 }
-            
-                // le appendo al div creato in precedenza
+                
                 odv.append(numero_recensioni);
                 div_totale.append(odv);
+
+            	
+                console.log(numero_recensioni);
+                // le appendo al div creato in precedenza
+               /* if(numero_recensioni!=null){
+                odv.append(numero_recensioni);
+                }else{
+                	numero_recensioni.innerHTML="0";
+                    odv.append(numero_recensioni);
+
+                }
+                div_totale.append(odv);*/
             
             }
             

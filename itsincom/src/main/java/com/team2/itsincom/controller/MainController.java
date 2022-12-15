@@ -537,8 +537,13 @@ public class MainController {
 	
 			}
 			
+			//lista risposte
 			Iterable<Risposte> numeroRisposte= risposteRepository.findAll();
 			model.addAttribute("numeroRisposte", numeroRisposte);
+			
+			List<Questionari> questionari= (List<Questionari>) questionarioRepository.findAll();
+			model.addAttribute("questionari", questionari);
+
 
 			System.out.println("Siamo la lita di Risposte");	
 			System.out.println(numeroRisposte);	
@@ -557,15 +562,8 @@ public class MainController {
 	@GetMapping("/aggiungiQuestionario") 
 	public String aggiungiQuestionario() {
 		System.out.println("uno");
-
 		return "aggiungiQuestionario";
 	}
-	
-	/*@GetMapping("/dashboard2") 
-	public String dashboard2() {
-		System.out.println("due");
-		return "dashboard2";
-	}*/
 	
 	// FUNZIONANTE, DA AGGIUNGERE CONTROLLO SU BOTTONE INVIO, IN SEGUITO TASK COMPLETATO
 	@RequestMapping(value="/aggiungiQuestionarioAdmin", method=RequestMethod.POST)
