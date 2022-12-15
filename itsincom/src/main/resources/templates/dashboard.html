@@ -82,10 +82,12 @@
     
     <!-- INSERIMENTO DEL NUMERO DI RECENSORI PER OGNI STELLA   -->
 		<th:block th:each="stelle1 : ${stelle1}">
-		
+		 <div th:if="${stelle1 != null}">
 		<td><span id="1"  class="numero-recensori" th:text="|${stelle1}"></span></td>
 		
 		</th:block>  
+		
+		
 		
 		<th:block th:each="stelle2 : ${stelle2}">
 		
@@ -161,6 +163,36 @@
 
       </div>
     </div>
+    
+    
+   <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">idUtente</th> 
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+           <th scope="col">Data</th>
+            <th scope="col">idQuestionario Compilato</th>
+           <th scope="col">Valutazione media</th>
+
+          </tr>
+        </thead>
+        <tbody>
+ <th:block th:each="questionari,iter  : ${questionari}">
+          <tr>
+            <td scope="row"><h5 th:text="|${iter.index}|"></h5></td>
+            <td th:text="${questionari.getutente().idutente}"></td>
+            <td th:text="${questionari.getutente().nome}"></td>
+            <td th:text="${questionari.getutente().cognome}"></td>
+           <td th:text="${#temporals.format(questionari.getdata(),'dd/MM/yyyy HH:mm:ss')}"></td>
+           <td th:text="${questionari.getQuestionariAdmin().idquestionariAdmin}"></td>
+           
+          </tr>
+          
+        </tbody>
+      </table>
+      </th:block>
 
         <script>
         

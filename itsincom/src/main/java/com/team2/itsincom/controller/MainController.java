@@ -537,8 +537,13 @@ public class MainController {
 	
 			}
 			
+			//lista risposte
 			Iterable<Risposte> numeroRisposte= risposteRepository.findAll();
 			model.addAttribute("numeroRisposte", numeroRisposte);
+			
+			List<Questionari> questionari= (List<Questionari>) questionarioRepository.findAll();
+			model.addAttribute("questionari", questionari);
+
 
 			System.out.println("Siamo la lita di Risposte");	
 			System.out.println(numeroRisposte);	

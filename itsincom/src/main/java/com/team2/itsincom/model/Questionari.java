@@ -63,6 +63,11 @@ public class Questionari {
 		this.utente = utente;
 	}
 	
+	public QuestionariAdmin getQuestionariAdmin() {
+		return questionariadmin;
+	}
+
+
 	public ZonedDateTime getdata() {
 		return data;
 	}
