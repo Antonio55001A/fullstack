@@ -558,15 +558,8 @@ public class MainController {
 	@GetMapping("/aggiungiQuestionario") 
 	public String aggiungiQuestionario() {
 		System.out.println("uno");
-
 		return "aggiungiQuestionario";
 	}
-	
-	/*@GetMapping("/dashboard2") 
-	public String dashboard2() {
-		System.out.println("due");
-		return "dashboard2";
-	}*/
 	
 	// FUNZIONANTE, DA AGGIUNGERE CONTROLLO SU BOTTONE INVIO, IN SEGUITO TASK COMPLETATO
 	@RequestMapping(value="/aggiungiQuestionarioAdmin", method=RequestMethod.POST)

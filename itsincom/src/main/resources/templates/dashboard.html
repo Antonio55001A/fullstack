@@ -226,8 +226,7 @@
             bottone_elimina.setAttribute("class", "btn btn-danger btn-lg ml-3");
             bottone_elimina.setAttribute("onclick", "EliminaForm("+id_questionari[i].value+")");
 
-            
-            
+
             bottone_attiva.innerHTML="Attiva";
             bottone_elimina.innerHTML="Elimina";
             
@@ -257,10 +256,21 @@
                     odv.append(stella);
                     i+=1;
                 }
-            
-                // le appendo al div creato in precedenza
+                
                 odv.append(numero_recensioni);
                 div_totale.append(odv);
+
+            	
+                console.log(numero_recensioni);
+                // le appendo al div creato in precedenza
+               /* if(numero_recensioni!=null){
+                odv.append(numero_recensioni);
+                }else{
+                	numero_recensioni.innerHTML="0";
+                    odv.append(numero_recensioni);
+
+                }
+                div_totale.append(odv);*/
             
             }
             
