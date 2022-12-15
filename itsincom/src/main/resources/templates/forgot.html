@@ -11,19 +11,19 @@
 </head>
 <body>
     <div class="container mt-5">
-        <form action="signin" method="post"  >
+        <div class="form">
 
         <h1 style="margin-left: 18%;"> Inserisci la tua email </h1>
 
         <form action="forgotPassword" method="post">  
 
-        <label for="exampleInputEmail1" style="width: 350px; margin-left: 20%; margin-top: 20px;">Indirizzo email</label>
+        <label for="email" style="width: 350px; margin-left: 20%; margin-top: 20px;">Indirizzo email</label>
         <input type="text" name="email"    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Inserisci email" style="width: 350px; margin-left: 20%;">
           <div style="display: flex; align-items: center; justify-content: center;">
           <button class="button" type="submit">Recupera Password</button>
           </div>
         </form>
-      </form>
+      </div>
 
     </div>
     <style>
@@ -50,7 +50,7 @@
 	    color: #9518fc;
 	}
 
-  form{
+	          .form{
             background-color: rgba(255,255,255,0.13);
             position: absolute;
             transform: translate(-50%,-50%);
@@ -65,7 +65,6 @@
             object-fit: cover;
 
 	          }
-
 
             form h3{
               font-size: 32px;

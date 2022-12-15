@@ -359,7 +359,6 @@ public class MainController {
 	
 	@RequestMapping(value="/forgotPassword", method=RequestMethod.POST)
 	public String postForgot(@RequestParam("email") String email, Model model, HttpSession session) {
-				
 			//inserimento credenziali account mittente
 		
 				final String username = "javaemail75@gmail.com"; //email di chi invia

@@ -15,16 +15,16 @@
 </head>
 <body>
     <div class="container mt-5">
-      <form action="signin" method="post"  >
+      <div class="form">
         
-          <h1 style="margin-left: 10%;"> Inserisci la nuova Password </h1>
+          
 
           <form action="changePassword" method="post">  
-
-          <label for="changePassword" style="width: 350px; margin-left: 20%;">Inserisci la nuova password</label>
+			<h1 style="margin-left: 10%;"> Inserisci la nuova Password </h1>
+          <label for="password" style="width: 350px; margin-left: 20%;">Inserisci la nuova password</label>
           
           <input type="password" name="password" id="exampleInputPassword" aria-describedby="changePassword" placeholder="Password" style="width: 350px; margin-left: 20%;">
-          <label for="changePassword" style="width: 350px; margin-left: 20%; margin-top: 15px;">Inserisci codice ricevuto via email</label>
+          <label for="code" style="width: 350px; margin-left: 20%; margin-top: 15px;">Inserisci codice ricevuto via email</label>
                 <input type="text" name="code" id="code" aria-describedby="code" placeholder="Codice email" style="margin-top: 4px; width: 350px; margin-left: 20%;">
           
           <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
@@ -32,7 +32,7 @@
           
         </div>
         </form>
-      </form>
+      </div>
 
 
     </div>
@@ -78,7 +78,6 @@
             object-fit: cover;
 
 	          }
-
 
             form h3{
               font-size: 32px;

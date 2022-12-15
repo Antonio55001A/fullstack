@@ -13,9 +13,6 @@
 
 <body>
 
-<!-- MANCA PARTE JAVA, LA AGGIUNGO DOMANI -->
-<!-- -->
-
 <!-- Form Name -->
 <form class="form-horizontal" action="/aggiungiQuestionarioAdmin" method="post"  id="formtest" >
 
@@ -23,13 +20,18 @@
 <!-- Text input-->
 <div id="items" class="form-group">
   <h3><label class="col-md-4 control-label mt-3" for="textinput">Crea il questionario</label></h1>
-
+	<h5><a href="/dashboard" class="ml-3">Vai alla dashboard</a></h5>
 <div class="col-md-4 margin-bottom">
   <input id="textinput" name="titoloQuestionario" type="text" placeholder="Inserisci il titolo del questionario" class="form-control input-md " required>
 
 </div>
 </div>
-<br>
+<div th:if="${param.error}">
+	<!-- <div class="alert" style="display: flex;justify-content: center; align-items: center; width: 350px; margin-left: 20%;">  -->
+	<div class="alert">
+		<h5 style="color: red;"> Aggiungi una domanda </h5>
+	</div>
+</div> 
 <div class="d-flex " style="float:left; display:block">
    <!--<div class="d-flex ml-3 align-items-center justify-content-center bg-dark " style="width: 130px; height:50px; color: white; cursor: pointer;">-->
    <button onclick="submit()" class="btn btn-success mt-3 ml-3"  id="bottoneInvio">Crea</button>
@@ -43,11 +45,7 @@
 </div>
 
 
-<div th:if="${param.error}">
-									<div class="alert" style="display: flex;justify-content: center; align-items: center; width: 350px; margin-left: 20%;"> 
-										<h5> Aggiungi una domanda </h5>
-									</div>
-								</div> 
+
 </form>
 
 
@@ -90,7 +88,7 @@ $(document).ready(function() {
         if (i==1) {
 
             $("#items").append(
-        `<div class="next-referral col-md-3 mt-2"><input id="textinput${i}" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
+        `<div class="next-referral col-md-3 mt-2"><input id="textinput${i}" onkeypress="controllaStringa(event)" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
             
         );
 
@@ -110,11 +108,11 @@ $(document).ready(function() {
 
 
             if(elemento != ""){
-             
-            $("#items").append(
-        `<div class="next-referral col-md-3 mt-2"><input id="textinput${i}" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
-            
-            )}else{
+             	$("#items").append(
+        		`<div class="next-referral col-md-3 mt-2"><input id="textinput${i}" onkeypress="controllaStringa(event)" name="textinput" type="text" placeholder="Inserisci la domanda n. ${i}"class="form-control input-md input-domanda" required></div>`
+            	);
+             	
+            }else{
                 $(".input-domanda").last().css("border-color","red");
                 $(".next-referral").last().append(
         `<p id="erroredomanda" style="color: red;"> Prima di inserire un'altra domanda compila quella precedente</p>`
@@ -180,37 +178,36 @@ $(document).ready(function() {
 
 // questa funziona serve per creare un unica stringa con i vari input in modo da poterla passare all'input nascosto ed in seguito a java, riuscendo così a passare tutte le domande
 function cambiaTesto(){
-
     var slides = document.getElementsByClassName("form-control input-md input-domanda");
     let stringa="";
     let inputzero= document.getElementById("parametrozero");
-    
     console.log(slides);
     console.log("partito");
-for (var i = 0; i < slides.length; i++) {
-
-    if(slides[i].value == ""){
-
-        // DA AGGIUNGERE CONTROLLO JS
+	for (var i = 0; i < slides.length; i++) {
+    	if(slides[i].value == ""){
+			// DA AGGIUNGERE CONTROLLO JS
         }else{
-
-    stringa += slides[i].value;
-    console.log(stringa);
-    stringa += "§";
-}}
-
-$(".next-referral").last().append(
+		    stringa += slides[i].value;
+		    console.log(stringa);
+		    stringa += "§";
+		}
+    }
+	$(".next-referral").last().append(
         `<input type="text" id="parametrozero" name="parametrozero" value="${stringa}" style="display: none;"></p>`
-    )
-
-
+    );
     console.log(document.getElementById("parametrozero").value);
-
-
-$("#formtest").submit();
-
+	$("#formtest").submit();
 }
 
+function controllaStringa(event){
+	var e = event || window.event;
+    var key = e.keyCode || e.which;
+    if (key == 167) {
+		// 167 = § carattere per separare stringhe
+        if (e.preventDefault) e.preventDefault();
+        e.returnValue = false;
+    }
+}
 
 document.querySelector('#bottoneInvio').addEventListener('click', function(event) {
     
