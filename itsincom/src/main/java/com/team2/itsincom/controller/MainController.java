@@ -525,8 +525,9 @@ public class MainController {
 			}
 			
 			float media = risposteRepository.calcolaMedia();
+			String media_troncata=String.format("%.2f", media);
 			System.out.println(media);
-			model.addAttribute("media", media);
+			model.addAttribute("media", media_troncata);
 			
 			i=0;
 			while (i<5) {

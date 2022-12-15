@@ -76,7 +76,12 @@
 				</th:block>  
 
    </div>
-
+   
+   
+ <!--  <div class="">
+   <h2> Il numero totale di voti lasciati è : <span id="totale_voti"></span></h2>
+   
+</div> --> 
  
 
     
@@ -357,6 +362,7 @@
             	  let tre = 0; 
             	  let quattro = 0;
             	  let cinque =0;
+            	  let totale_voti=0;
 
             	  // prendo tutte le domande 
             	  const last = Array.from(
@@ -459,6 +465,8 @@
             	          
             	          // calcolo la media
             	          media= somma/b; 
+            	          
+            	          //totale voti
 
             	          // la sparo nel dom    
             	          titoloMedia=document.createElement("h3");
@@ -505,7 +513,20 @@
             	      min+=1;
             	      counter+=1;
             	  }
-            	}
+            	/*  let Tot=0;
+            	  let val=0;
+            	  let span_totale_voti=document.getElementById("totale_voti");
+    	          totale_voti=  document.getElementsByClassName("numero-recensori");
+    	          for(i=0;i<totale_voti.lenght;i++){
+    	        	  element= totale_voti[i].textContent;
+    	        	  val= +element;
+    	        	  console.log(element);
+    	        	  Tot=Tot+val;*/
+    	        	  
+    	          }
+
+            	 // span_totale_voti.append(Tot);
+            	
 
 
             	function GeneraStellaDomandeRisposte(parametro){
