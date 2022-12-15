@@ -41,4 +41,8 @@
 
 14/12/2022
  - Antonio De Biase: Conclusione bottoni, risoluzione bug
- - Fabio Fiorattini: Migliorie utente, prova su docker
+ - Fabio Fiorattini: Migliorie utente, prove su docker, creazione presentazione
+
+15/12/2022
+ - Antonio De Biase: Aggiunta tabella di report dei questionari compilati
+ - Fabio Fiorattini: Risoluzione bug, conclusione presentazione
